@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>生化知识点卡片（对照章节梳理重制版）</title>
+<style>
+:root{
+  --bg:#f5f6fa; --card:#ffffff; --ink:#1f2430; --sub:#6b7280; --line:#e5e7eb;
+  --red:#dc2626; --orange:#d97706; --gray:#9ca3af; --lightgray:#c7cbd4;
+  --acc:#2563eb; --acc-soft:#dbeafe; --ok:#16a34a;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.wrap{max-width:920px;margin:0 auto;padding:16px 14px 90px}
+header.top{position:sticky;top:0;z-index:20;background:rgba(245,246,250,.95);backdrop-filter:blur(6px);padding:12px 0 10px;border-bottom:1px solid var(--line)}
+h1{font-size:1.25rem;letter-spacing:.5px}
+h1 small{font-size:.72rem;color:var(--sub);font-weight:400;margin-left:6px}
+.stat{display:flex;gap:8px;align-items:center;margin-top:8px;font-size:.75rem;color:var(--sub);flex-wrap:wrap}
+.pbar{flex:1;min-width:120px;height:8px;background:#e9ecf3;border-radius:99px;overflow:hidden;display:flex}
+.pbar i{display:block;height:100%;transition:width .3s}
+.pbar .p0{background:#d1d5db}.pbar .p1{background:#93c5fd}.pbar .p2{background:#60a5fa}.pbar .p3{background:#3b82f6}.pbar .p4{background:var(--ok)}
+.legend{font-size:.72rem;color:var(--sub);margin-top:6px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.controls select,.controls input[type=search]{padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:.85rem;background:#fff;flex:1;min-width:130px}
+.btn{padding:9px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:.82rem;cursor:pointer;color:var(--ink)}
+.btn.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.btn:active{transform:scale(.97)}
+.chap-h{display:flex;align-items:center;gap:8px;margin:22px 0 10px;font-size:1rem;font-weight:700}
+.chap-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.chap-h .n{font-size:.72rem;color:#fff;background:var(--acc);border-radius:8px;padding:1px 8px;font-weight:400}
+.grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 15px;box-shadow:0 1px 3px rgba(20,30,60,.05);cursor:pointer;transition:box-shadow .2s,transform .15s;position:relative;overflow:hidden}
+.card:active{transform:scale(.99)}
+.card.open{box-shadow:0 4px 14px rgba(37,99,235,.12);border-color:#bfdbfe}
+.card .meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.badge{font-size:.68rem;font-weight:700;border-radius:6px;padding:1px 7px;color:#fff}
+.badge.b4{background:var(--red)}.badge.b3{background:var(--orange)}.badge.b2{background:var(--gray)}.badge.b1{background:var(--lightgray);color:#555}
+.freq{font-size:.68rem;color:var(--sub);background:#f1f2f6;border-radius:6px;padding:1px 7px}
+.mchip{font-size:.66rem;color:var(--sub);margin-left:auto}
+.mchip.m1{color:#2563eb}.mchip.m2{color:#7c3aed}.mchip.m3{color:#0e7490}.mchip.m4{color:var(--ok);font-weight:700}
+.term{font-size:.98rem;font-weight:700}
+.hintline{font-size:.7rem;color:var(--sub);margin-top:4px}
+.ans{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:.86rem;color:#374151}
+.ans strong{color:var(--red)}
+.card.open .ans{display:block}
+.card.open .hintline{display:none}
+.mrow{display:none;gap:6px;margin-top:12px}
+.card.open .mrow{display:flex}
+.mrow button{flex:1;padding:8px 4px;font-size:.74rem;border:1px solid var(--line);border-radius:9px;background:#fafbfc;cursor:pointer;color:var(--sub)}
+.mrow button.m1.on{background:#dbeafe;border-color:#93c5fd;color:#1d4ed8;font-weight:700}
+.mrow button.m2.on{background:#ede9fe;border-color:#c4b5fd;color:#6d28d9;font-weight:700}
+.mrow button.m3.on{background:#cffafe;border-color:#67e8f9;color:#0e7490;font-weight:700}
+.mrow button.m4.on{background:#dcfce7;border-color:#86efac;color:#15803d;font-weight:700}
+.mrow button:active{transform:scale(.96)}
+.empty{text-align:center;color:var(--sub);padding:40px 0;font-size:.85rem}
+#topBtn{position:fixed;right:16px;bottom:20px;width:44px;height:44px;border-radius:50%;border:none;background:var(--acc);color:#fff;font-size:1.1rem;box-shadow:0 4px 12px rgba(37,99,235,.35);display:none;z-index:30;cursor:pointer}
+.foot{margin-top:26px;font-size:.74rem;color:var(--sub);border-top:1px solid var(--line);padding-top:12px}
+@media(max-width:640px){
+  .wrap{padding:12px 10px 90px}
+  h1{font-size:1.05rem}
+  .controls{gap:6px}
+  .btn{padding:9px 10px;font-size:.78rem}
+  .term{font-size:.94rem}
+  .mrow button{font-size:.7rem;padding:9px 2px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>生化知识点卡片 <small>对照《章节知识点梳理》重制 · 共 137 张</small></h1>
+  <div class="stat">
+    <span id="statTxt"></span>
+    <div class="pbar"><i id="pb1" class="p1"></i><i id="pb2" class="p2"></i><i id="pb3" class="p3"></i><i id="pb4" class="p4"></i></div>
+  </div>
+  <div class="legend">● 必考（闭卷能默写）｜◐ 常考（记住关键词）｜○ 一般（读两遍）｜△ 了解 —— 点卡片显答案，再给自己评掌握度</div>
+</header>
+
+<div class="controls">
+  <select id="chSel"><option value="">全部章节</option></select>
+  <select id="lvSel">
+    <option value="">全部重要度</option>
+    <option value="4">● 必考</option>
+    <option value="3">◐ 常考</option>
+    <option value="2">○ 一般</option>
+    <option value="1">△ 了解</option>
+    <option value="0">未标记</option>
+  </select>
+  <select id="msSel">
+    <option value="">全部掌握度</option>
+    <option value="0">未自评</option>
+    <option value="1">★ 有印象</option>
+    <option value="2">★★ 熟悉</option>
+    <option value="3">★★★ 掌握</option>
+    <option value="4">★★★★ 能默写</option>
+  </select>
+  <input type="search" id="q" placeholder="搜索关键词…">
+  <button class="btn" id="shuffleBtn">乱序</button>
+  <button class="btn" id="expandBtn">全部展开</button>
+  <button class="btn" id="collapseBtn">全部收起</button>
+</div>
+
+<div id="list"></div>
+<div class="empty" id="emptyTip" style="display:none">没有符合筛选条件的卡片</div>
+
+<div class="foot">
+  数据依据《章节知识点梳理.md》（2026 秋教学大纲 + 2018–2025 真题统计）。掌握度存在本机浏览器（localStorage），清除浏览器数据会重置。<br>
+  复习优先级：<strong>先刷 ● 必考 → 再 ◐ 常考 → ○ 读两遍 → △ 可放弃</strong>。全卷 ● 必考共 18 处，见章节梳理文末热力图。
+</div>
+</div>
+<button id="topBtn" title="回到顶部">↑</button>
+
+<script>
+const DATA = {"chapters": ["绪论", "第一章 蛋白质的结构与功能", "第二章 核酸的结构与功能", "第三章 酶与酶促反应", "第四章 糖代谢", "第五章 三羧酸循环与氧化磷酸化", "第六章 脂类代谢", "第七章 氨基酸代谢", "第八章 核苷酸代谢与代谢综合", "第九章 维生素", "第十章 肝胆生化与血液生化", "第十一章 基因、基因组与 DNA 的合成", "第十二章 RNA 的生物合成", "第十三章 蛋白质的生物合成", "第十四章 基因表达的调控", "第十五章 常用分子生物学技术", "第十六章 DNA 重组与重组 DNA 技术", "第十七章 癌基因、抑癌基因与生长因子", "第十八章 基因诊断与基因治疗", "第十九章 组学与系统生物学"], "cards": [{"id": "c0b0", "ch": 0, "chapter": "绪论", "term": "生物化学定义", "body": "研究生物体内化学分子与化学反应的科学，在分子水平上探讨生命现象。", "badge": null}, {"id": "c0b1", "ch": 0, "chapter": "绪论", "term": "研究内容三大板块", "body": "生物分子的结构与功能；物质代谢及其调节；基因信息传递及其调控。→ 对应本课程三篇结构。", "badge": null}, {"id": "c0b2", "ch": 0, "chapter": "绪论", "term": "与医学的关系", "body": "疾病机制（分子病）、诊断（基因诊断）、治疗（靶向药物、基因治疗）的分子基础。---", "badge": {"level": 1, "freq": "未考", "name": "生物化学研究内容、与医学的关系"}}, {"id": "c1b0", "ch": 1, "chapter": "第一章 蛋白质的结构与功能", "term": "结构层次", "body": "一级＝氨基酸排列顺序（肽键连接，是基本结构）；二级＝局部主链构象（氢键维持：α 螺旋——右手、3.6 个氨基酸/圈、螺距 0.54nm；β 折叠）；三级＝整条肽链全部原子的空间排布（次级键 + 二硫键）；四级＝亚基聚合（血红蛋白 2α2β 四聚体）。", "badge": null}, {"id": "c1b1", "ch": 1, "chapter": "第一章 蛋白质的结构与功能", "term": "三级结构稳定作用力", "body": "氢键、<strong>疏水作用（主要驱动力）</strong>、范德华力、盐键（离子键）、二硫键（唯一共价键）。", "badge": {"level": 3, "freq": "2020 简", "name": "蛋白质三级结构稳定的化学键"}}, {"id": "c1b2", "ch": 1, "chapter": "第一章 蛋白质的结构与功能", "term": "氨基酸分类（按 R 基极性）", "body": "① 非极性脂肪族（Gly、Ala、Val、Leu、Ile、Pro、Met）；② 极性中性（Ser、Thr、Cys、Asn、Gln）；③ 芳香族（Phe、Tyr、Trp）；④ 酸性（Asp、Glu）；⑤ 碱性（Lys、Arg、His）。<strong>必需氨基酸 8 种</strong>：缬、异亮、亮、苯丙、蛋、色、苏、赖（口诀「借一两本淡色书」）。pI 排序规律：酸性 &lt; 中性 &lt; 碱性。", "badge": {"level": 3, "freq": "2018-19 简、2021 问", "name": "氨基酸的分类与特性、pI 排序"}}, {"id": "c1b3", "ch": 1, "chapter": "第一章 蛋白质的结构与功能", "term": "蛋白质变性", "body": "理化因素（热、紫外线、强酸强碱、有机溶剂、尿素、重金属盐、表面活性剂）破坏次级键和二硫键，空间构象破坏、生物活性丧失、溶解度降低易沉淀；<strong>一级结构不变</strong>，去除变性因素可复性（如核糖核酸酶复性实验）。凝固＝变性后进一步发展，不可逆。", "badge": {"level": 4, "freq": "2021 简、2020 选、2025 简", "name": "蛋白质变性（条件、复性）"}}, {"id": "c1b4", "ch": 1, "chapter": "第一章 蛋白质的结构与功能", "term": "一级结构与功能", "body": "一级结构决定高级结构（中国 1965 年人工合成牛胰岛素为证）；镰刀形贫血＝Hb β 链第 6 位 Glu→Val。", "badge": null}, {"id": "c1b5", "ch": 1, "chapter": "第一章 蛋白质的结构与功能", "term": "高级结构与功能", "body": "血红蛋白变构效应（H⁺、CO₂、2,3-BPG 降低对 O₂ 亲和力，即波尔效应）；协同效应（一个亚基结合 O₂ 促进其余亚基结合）。", "badge": {"level": 2, "freq": "大纲案例", "name": "一级/高级结构与功能关系"}}, {"id": "c1b6", "ch": 1, "chapter": "第一章 蛋白质的结构与功能", "term": "蛋白质纯化", "body": "① 盐析（中性盐、不破坏活性、可逆）；② 透析/超滤（按分子大小、脱盐浓缩）；③ 电泳（SDS-PAGE 按分子量、等电聚焦按 pI、双向电泳）；④ 层析：凝胶过滤（按分子大小，<strong>大分子先流出</strong>）、离子交换（按电荷）、亲和层析（特异性最高）；⑤ 超速离心。", "badge": {"level": 4, "freq": "2021 简、2023 简", "name": "蛋白质分离纯化方法（≥5 种）"}}, {"id": "c1b7", "ch": 1, "chapter": "第一章 蛋白质的结构与功能", "term": "理化性质", "body": "两性解离（pI 时溶解度最小、泳动为零）；胶体性质（不能透过半透膜 → 透析原理）；紫外吸收 280nm（芳香族氨基酸）；茚三酮反应（蓝紫色，Pro 呈黄色）。", "badge": {"level": 2, "freq": "未直接考", "name": "理化性质（pI、紫外、茚三酮）"}}, {"id": "c1b8", "ch": 1, "chapter": "第一章 蛋白质的结构与功能", "term": "翻译后加工", "body": "切除（N 端 Met、信号肽）、二硫键形成、化学修饰（磷酸化、糖基化、羟基化、乙酰化）、肽链剪切（酶原激活）、折叠（分子伴侣）、亚基聚合、靶向运输（信号肽引导）。---", "badge": {"level": 2, "freq": "2018-19 简", "name": "酶以外的翻译后加工"}}, {"id": "c2b0", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "化学组成", "body": "碱基（A、G、C、T、U）＋戊糖（核糖/脱氧核糖）＋磷酸；核苷＝碱基＋戊糖；核苷酸＝核苷＋磷酸。", "badge": null}, {"id": "c2b1", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "Chargaff 规则", "body": "A=T、G=C、A+G=T+C（嘌呤＝嘧啶）；碱基组成有种属特异性；是双螺旋模型的基础。", "badge": {"level": 3, "freq": "2023 简", "name": "Chargaff 规则"}}, {"id": "c2b2", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "DNA 双螺旋（B 型）要点", "body": "两条链反向平行、右手螺旋；直径 2nm、螺距 3.4nm、每圈 10 个碱基对；碱基互补（A-T 两个氢键、G-C 三个氢键）位于内侧，脱氧核糖-磷酸骨架在外；稳定力＝氢键 + <strong>碱基堆积力（主要）</strong>；存在大沟和小沟。", "badge": {"level": 3, "freq": "2025 简、大纲必须掌握", "name": "DNA 双螺旋模型要点"}}, {"id": "c2b3", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "DNA 变性", "body": "双链解开成单链，氢键断裂、一级结构不变；变性后 A260 升高（<strong>增色效应</strong>）；<strong>Tm</strong>＝解链 50% 的温度，与 GC 含量正相关、与 DNA 长度正相关、与离子强度正相关。应用：PCR 变性、核酸杂交。", "badge": {"level": 3, "freq": "2020 简、2018-19 简", "name": "DNA 变性与复性、Tm"}}, {"id": "c2b4", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "复性（退火）", "body": "去除变性因素后互补单链重新配对成双链；缓慢降温利于复性 → 核酸分子杂交的基础。", "badge": {"level": 3, "freq": "2024 简、2018-19/2023 选判", "name": "核酸分子杂交原理"}}, {"id": "c2b5", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "DNA 与 RNA 差别", "body": "戊糖（脱氧/核糖）；碱基（T/U）；结构（双链稳定/多单链）；分布（核/核+胞）；功能（储存遗传信息/参与表达）。", "badge": {"level": 3, "freq": "2024 简", "name": "DNA 与 RNA 的主要差别"}}, {"id": "c2b6", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "tRNA", "body": "70–90 个核苷酸，含稀有碱基（DHU、Ψ）。二级结构<strong>三叶草形</strong>：氨基酸臂（3′-CCA-OH 末端结合氨基酸）、DHU 环、<strong>反密码子环</strong>（环中部为反密码子，反向互补识别密码子）、TΨC 环、额外环；三级结构<strong>倒 L 型</strong>；约半数碱基配对。", "badge": {"level": 3, "freq": "2020 简、2023 选", "name": "tRNA 的结构与功能"}}, {"id": "c2b7", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "mRNA", "body": "真核 5′ 帽（m⁷GpppN：抗 5′ 外切酶降解、促进翻译起始、协助出核）、3′ polyA 尾（稳定 mRNA）、5′/3′ UTR；原核 mRNA 多顺反子、无帽无尾。", "badge": {"level": 3, "freq": "2023 简", "name": "mRNA 5′ 帽结构"}}, {"id": "c2b8", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "rRNA", "body": "含量最多；23S rRNA 具有<strong>肽酰转移酶活性（核酶）</strong>。", "badge": {"level": 2, "freq": "未直接考", "name": "rRNA、核酶"}}, {"id": "c2b9", "ch": 2, "chapter": "第二章 核酸的结构与功能", "term": "核酶", "body": "具有催化活性的 RNA。---", "badge": null}, {"id": "c3b0", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "概念", "body": "活细胞产生的、对其特异底物起高效催化作用的有机物，化学本质主要是蛋白质（核酶是 RNA）。", "badge": null}, {"id": "c3b1", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "分子组成", "body": "单纯酶（仅蛋白质）vs 结合酶（酶蛋白 + 辅助因子）；辅助因子分<strong>辅基</strong>（结合紧密、不能透析除去，如 FAD、血红素）和<strong>辅酶</strong>（结合疏松、可透析，如 NAD⁺、CoA）；多为维生素衍生物；金属离子参与电子传递、维持构象。", "badge": {"level": 3, "freq": "2024 简", "name": "辅酶与辅基"}}, {"id": "c3b2", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "活性中心", "body": "必需基团（结合基团 + 催化基团）在空间上靠拢形成的特定区域。", "badge": null}, {"id": "c3b3", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "酶促反应特点", "body": "极高的催化效率（降低活化能）；高度的底物特异性（绝对/相对/立体异构特异性）；活性可调节。", "badge": null}, {"id": "c3b4", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "米氏方程", "body": "ν = Vmax[S]/(Km+[S])。<strong>Km</strong>＝反应速度为 1/2 Vmax 时的底物浓度；Km 近似反映酶与底物亲和力（<strong>Km 越小亲和力越大</strong>）；Km 是酶的特征性常数（与酶浓度无关，受温度、pH 影响）；Vmax 与酶浓度成正比；最适 pH 和最适温度<strong>不是</strong>特征常数。", "badge": {"level": 3, "freq": "大纲必须掌握", "name": "米氏方程、Km/Vmax 意义"}}, {"id": "c3b5", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "抑制剂", "body": "① 不可逆抑制（有机磷抑制胆碱酯酶羟基、重金属抑制巯基；解磷定解毒）；② 可逆抑制三型——<strong>竞争性</strong>（I 与 S 结构相似，竞争结合活性中心；Vmax 不变、<strong>Km 增大</strong>；增加底物可解除，如磺胺药）、<strong>非竞争性</strong>（I 结合活性中心以外部位；<strong>Vmax 降低、Km 不变</strong>）、<strong>反竞争性</strong>（I 只结合 ES 复合物；<strong>Vmax 和 Km 同比例下降</strong>）。", "badge": {"level": 3, "freq": "2023 简", "name": "抑制剂类型及 Km/Vmax 变化"}}, {"id": "c3b6", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "酶原激活", "body": "无活性酶原经蛋白酶切除一段肽后形成活性中心（如胰蛋白酶原被肠激酶激活）；意义：保护合成组织自身、酶以无活性形式贮存；属不可逆共价调节。", "badge": {"level": 2, "freq": "2022 问", "name": "酶原激活"}}, {"id": "c3b7", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "变构调节", "body": "变构效应剂（多为小分子代谢物）以非共价键结合酶的调节部位（活性中心以外），引起构象改变从而调节活性；变构酶多为多亚基，v-[S] 曲线呈 <strong>S 形</strong>，不遵循米氏方程；终产物反馈抑制起始酶，使代谢协调。", "badge": {"level": 4, "freq": "2020 简、2022 问", "name": "变构调节（变构剂、变构酶、S 形曲线）"}}, {"id": "c3b8", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "共价修饰调节", "body": "酶的肽链残基在其他酶催化下发生可逆共价修饰（<strong>磷酸化/去磷酸化最常见</strong>）；有放大效应；经济有效。", "badge": {"level": 2, "freq": "2022 问（间接）", "name": "共价修饰、酶量调节、同工酶"}}, {"id": "c3b9", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "酶量调节", "body": "诱导（底物/激素诱导合成）与阻遏（终产物阻遏），起效慢但持续久。", "badge": null}, {"id": "c3b10", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "同工酶", "body": "催化相同反应、分子结构和理化性质不同的一组酶（如 LDH1–5，心肌以 LDH1 为主、肝以 LDH5 为主），用于临床诊断。", "badge": null}, {"id": "c3b11", "ch": 3, "chapter": "第三章 酶与酶促反应", "term": "核酶", "body": "化学本质为 RNA 的酶。---", "badge": null}, {"id": "c4b0", "ch": 4, "chapter": "第四章 糖代谢", "term": "糖酵解（胞液）", "body": "葡萄糖 → 2 丙酮酸 + <strong>净 2 ATP + 2 NADH</strong>；三个关键酶：<strong>己糖激酶</strong>（肝为葡萄糖激酶）、<strong>磷酸果糖激酶-1（最重要限速酶）</strong>、<strong>丙酮酸激酶</strong>。生理意义：缺氧时供能（成熟红细胞唯一供能方式）、某些组织正常供能（视网膜）、提供生物合成原料。", "badge": {"level": 3, "freq": "2021 问（全过程）", "name": "糖酵解关键酶与意义"}}, {"id": "c4b1", "ch": 4, "chapter": "第四章 糖代谢", "term": "有氧氧化", "body": "糖酵解 → 丙酮酸入线粒体 → <strong>丙酮酸脱氢酶复合体</strong>（辅酶：TPP、硫辛酸、FAD、CoA、NAD⁺；丙酮酸 → 乙酰 CoA + CO₂ + NADH）→ TCA → 氧化磷酸化。1 分子葡萄糖净得 <strong>30 或 32 ATP</strong>。", "badge": {"level": 3, "freq": "2021 问、2025 问", "name": "糖有氧氧化与 ATP 计算"}}, {"id": "c4b2", "ch": 4, "chapter": "第四章 糖代谢", "term": "糖原代谢", "body": "合成关键酶<strong>糖原合酶</strong>（α-1,4 糖苷键；分支酶形成 α-1,6）；分解关键酶<strong>糖原磷酸化酶</strong>；<strong>葡萄糖-6-磷酸酶只存在于肝肾</strong>，所以<strong>肝糖原可补充血糖、肌糖原不能</strong>（仅供肌肉自身收缩）。激素调节：胰高血糖素/肾上腺素 → cAMP-PKA → 磷酸化酶激活、糖原合酶失活。", "badge": {"level": 3, "freq": "2018-19 问、2022 问", "name": "糖原合成与分解（肝 vs 肌）"}}, {"id": "c4b3", "ch": 4, "chapter": "第四章 糖代谢", "term": "糖异生（肝肾）", "body": "原料：乳酸、甘油、生糖氨基酸、丙酸（<strong>乙酰 CoA 不能作原料</strong>）；四个关键酶绕过糖酵解三个能障：<strong>丙酮酸羧化酶</strong>（线粒体，生物素）、<strong>PEP 羧激酶</strong>、<strong>果糖二磷酸酶-1</strong>、<strong>葡萄糖-6-磷酸酶</strong>；乳酸循环（Cori 循环）使肌肉乳酸在肝糖异生回输肌肉。", "badge": {"level": 2, "freq": "2024 选", "name": "糖异生（前体、关键酶）"}}, {"id": "c4b4", "ch": 4, "chapter": "第四章 糖代谢", "term": "磷酸戊糖途径", "body": "关键酶 <strong>G6PD</strong>；产物 <strong>NADPH</strong>（还原性生物合成、维持谷胱甘肽还原态、细胞色素 P450 供氢）+ <strong>核糖-5-磷酸</strong>（核苷酸合成原料）；G6PD 缺乏 → 溶血性贫血。", "badge": {"level": 3, "freq": "2024 简", "name": "磷酸戊糖途径（G6PD、NADPH）"}}, {"id": "c4b5", "ch": 4, "chapter": "第四章 糖代谢", "term": "血糖调节", "body": "胰岛素是<strong>唯一降血糖激素</strong>（促进组织摄取葡萄糖、促进糖原/脂肪/蛋白质合成、抑制糖异生和脂肪动员）；<strong>胰高血糖素升血糖</strong>（促肝糖原分解和糖异生；受体-Gs-AC-cAMP-PKA 通路）；肾上腺素（应激）、糖皮质激素（拮抗胰岛素）升血糖。---", "badge": {"level": 4, "freq": "2022 问、2024 问、2025 简", "name": "血糖调节（胰岛素、胰高血糖素机制）"}}, {"id": "c5b0", "ch": 5, "chapter": "第五章 三羧酸循环与氧化磷酸化", "term": "TCA 循环（线粒体基质）", "body": "乙酰 CoA + 草酰乙酸 → 柠檬酸（<strong>柠檬酸合酶</strong>）→ 异柠檬酸 → α-酮戊二酸（<strong>异柠檬酸脱氢酶</strong>，脱氢+脱羧）→ 琥珀酰 CoA（<strong>α-酮戊二酸脱氢酶系</strong>，TPP、硫辛酸、FAD、CoA、NAD⁺）→ 琥珀酸（琥珀酰 CoA 合成酶，<strong>底物水平磷酸化生成 GTP</strong>）→ 延胡索酸（琥珀酸脱氢酶，FADH₂）→ 苹果酸 → 草酰乙酸。每轮：1 GTP + 3 NADH + 1 FADH₂ + 2 CO₂。三大关键酶已标粗。意义：三大营养素的最终氧化通路、代谢联系的枢纽、产能的主要环节、为生物合成提供前体。", "badge": {"level": 4, "freq": "2020 问、2024 简", "name": "TCA 循环全过程（代谢物、酶、辅酶）"}}, {"id": "c5b1", "ch": 5, "chapter": "第五章 三羧酸循环与氧化磷酸化", "term": "呼吸链（线粒体内膜）四个复合体", "body": "Ⅰ NADH-泛醌还原酶（FMN、Fe-S；<strong>泵 4H⁺</strong>）；Ⅱ 琥珀酸-泛醌还原酶（FAD、Fe-S；<strong>不泵质子</strong>）；Ⅲ 泛醌-细胞色素 c 还原酶（Cyt b、Fe-S、Cyt c1；<strong>泵 4H⁺</strong>）；Ⅳ 细胞色素 c 氧化酶（Cytaa3、Cu；<strong>泵 2H⁺</strong>）。两条链：<strong>NADH 氧化呼吸链</strong>（Ⅰ→Ⅲ→Ⅳ）和<strong>琥珀酸氧化呼吸链</strong>（Ⅱ→Ⅲ→Ⅳ）。", "badge": {"level": 4, "freq": "2023 问（20 分）", "name": "呼吸链组成与电子排序"}}, {"id": "c5b2", "ch": 5, "chapter": "第五章 三羧酸循环与氧化磷酸化", "term": "电子载体排序（得电子能力/还原电位由弱到强）", "body": "NAD → FAD → 辅酶 Q → 细胞色素 c → O₂。", "badge": null}, {"id": "c5b3", "ch": 5, "chapter": "第五章 三羧酸循环与氧化磷酸化", "term": "辅酶 Q", "body": "脂溶性，可在内膜中自由扩散；接受复合体Ⅰ、Ⅱ的氢和电子，传递给复合体Ⅲ（醌/半醌/氢醌形式，递 2 个电子）。", "badge": {"level": 4, "freq": "2023 问", "name": "Q 与 Cyt c 的性质、穿梭与传递方式"}}, {"id": "c5b4", "ch": 5, "chapter": "第五章 三羧酸循环与氧化磷酸化", "term": "细胞色素 c", "body": "水溶性，位于内膜外侧面（膜间隙）；在复合体Ⅲ与Ⅳ之间传递电子，单电子传递（Fe³⁺/Fe²⁺）。", "badge": null}, {"id": "c5b5", "ch": 5, "chapter": "第五章 三羧酸循环与氧化磷酸化", "term": "氧化磷酸化", "body": "呼吸链电子传递偶联 ADP 磷酸化生成 ATP；<strong>化学渗透学说</strong>（Mitchell）：泵出的质子形成跨膜电化学梯度，经 <strong>ATP 合酶</strong>（F1 头部 α₃β₃ 催化、F0 为质子通道）回流驱动 ATP 合成。", "badge": {"level": 3, "freq": "2023 问（间接）", "name": "化学渗透学说、ATP 合酶"}}, {"id": "c5b6", "ch": 5, "chapter": "第五章 三羧酸循环与氧化磷酸化", "term": "P/O 比值", "body": "NADH ≈ 2.5 ATP，FADH₂ ≈ 1.5 ATP；复合体Ⅰ+Ⅲ+Ⅳ 共泵 10H⁺ → 约 2.5 ATP。", "badge": {"level": 4, "freq": "2023 问", "name": "质子泵复合体与 ATP 产量"}}, {"id": "c5b7", "ch": 5, "chapter": "第五章 三羧酸循环与氧化磷酸化", "term": "调节", "body": "ADP/ATP 比值是最主要调节因素；抑制剂：CO/氰化物/叠氮化合物抑制复合体Ⅳ，抗霉素 A 抑制Ⅲ，寡霉素抑制 ATP 合酶；<strong>解偶联剂</strong>（2,4-二硝基苯酚 DNP、甲状腺素、棕色脂肪 UCP1）：质子回流不偶联 ATP 合成 → 产能变为产热。", "badge": null}, {"id": "c5b8", "ch": 5, "chapter": "第五章 三羧酸循环与氧化磷酸化", "term": "底物水平磷酸化", "body": "不依赖氧、不经呼吸链，直接将高能化合物磷酸基转移给 ADP（糖酵解 1,3-二磷酸甘油酸 → 3-磷酸甘油酸；TCA 琥珀酰 CoA → 琥珀酸）。---", "badge": {"level": 2, "freq": "2020 问", "name": "底物水平磷酸化概念与步骤"}}, {"id": "c6b0", "ch": 6, "chapter": "第六章 脂类代谢", "term": "生理功能", "body": "储能与供能（1g 脂肪储能 ≈ 6 倍于含水糖原）；生物膜成分；衍生物（类固醇激素、胆汁酸、维生素 D、前列腺素）。", "badge": null}, {"id": "c6b1", "ch": 6, "chapter": "第六章 脂类代谢", "term": "消化吸收", "body": "胆汁酸盐乳化；胰脂肪酶 + 辅脂酶水解；<strong>长链脂肪酸</strong>吸收后在肠黏膜重新合成甘油三酯 + apoB48 → <strong>乳糜微粒（CM）</strong>经淋巴入血；中短链脂肪酸直接入门静脉。CM 半衰期 5–15 分钟，<strong>空腹 12–14 小时血浆中消失</strong>（所以空腹检测不到）。", "badge": {"level": 3, "freq": "2020 简、2025 简", "name": "乳糜微粒代谢特点"}}, {"id": "c6b2", "ch": 6, "chapter": "第六章 脂类代谢", "term": "脂肪动员", "body": "储存在脂肪细胞的甘油三酯在<strong>激素敏感脂肪酶（HSL，限速）</strong>作用下水解为游离脂肪酸 + 甘油释放入血；胰岛素抑制、肾上腺素/胰高血糖素促进；甘油入肝糖异生，FFA 与白蛋白结合运输供全身利用。", "badge": {"level": 3, "freq": "2020 简", "name": "脂肪动员（概念、HSL、意义）"}}, {"id": "c6b3", "ch": 6, "chapter": "第六章 脂类代谢", "term": "脂肪酸 β-氧化（线粒体）", "body": "① 胞液内活化（脂酰 CoA 合成酶，<strong>耗 2 个高能磷酸键</strong>）；② <strong>肉碱</strong>转运入线粒体（CPT-Ⅰ 为限速步骤，丙二酰 CoA 抑制）；③ 每轮四步：脱氢（FAD → FADH₂）、加水、再脱氢（NAD⁺ → NADH）、硫解（生成 1 乙酰 CoA）。偶数碳饱和脂肪酸：n/2−1 轮 β 氧化。<strong>软脂酸 106 ATP（新算法）/ 129（旧）；硬脂酸 120（新）/ 146（旧）</strong>。", "badge": {"level": 4, "freq": "2021 问、2020 选、2025 问", "name": "β-氧化与 ATP 计算"}}, {"id": "c6b4", "ch": 6, "chapter": "第六章 脂类代谢", "term": "不饱和脂肪酸氧化", "body": "需烯酰 CoA 异构酶和还原酶辅助；<strong>奇数碳脂肪酸</strong> → 丙酰 CoA → 琥珀酰 CoA（可糖异生）。", "badge": null}, {"id": "c6b5", "ch": 6, "chapter": "第六章 脂类代谢", "term": "酮体", "body": "乙酰乙酸、β-羟丁酸、丙酮；<strong>肝内线粒体合成</strong>（原料乙酰 CoA，关键酶 HMG-CoA 合酶）、<strong>肝外利用</strong>（心、肾、骨骼肌；饥饿时脑）；意义：饥饿/糖尿病时替代葡萄糖供脑、节约葡萄糖；酮体过多 → 酮症酸中毒。", "badge": {"level": 2, "freq": "大纲必须掌握", "name": "酮体（生成、利用、意义）"}}, {"id": "c6b6", "ch": 6, "chapter": "第六章 脂类代谢", "term": "脂肪合成（胞液）", "body": "原料乙酰 CoA（经柠檬酸-丙酮酸循环出线粒体）、NADPH（磷酸戊糖途径为主）、ATP；关键酶<strong>乙酰 CoA 羧化酶</strong>（辅基生物素；柠檬酸激活、软脂酰 CoA 反馈抑制；胰岛素诱导、胰高血糖素抑制）。", "badge": {"level": 2, "freq": "大纲列出", "name": "脂肪、脂肪酸合成"}}, {"id": "c6b7", "ch": 6, "chapter": "第六章 脂类代谢", "term": "胆固醇", "body": "合成部位肝脏胞液/内质网；原料 18 分子乙酰 CoA + NADPH + ATP；关键酶 <strong>HMG-CoA 还原酶</strong>（他汀类降脂药作用靶点）；调节：饱食/胰岛素促进、饥饿/胰高血糖素抑制、胆固醇经 LDL 受体负反馈；转化：胆汁酸（主要去路）、类固醇激素、维生素 D₃；酯化储存。", "badge": {"level": 3, "freq": "2018-19 问、2024 判", "name": "胆固醇合成调节与稳态"}}, {"id": "c6b8", "ch": 6, "chapter": "第六章 脂类代谢", "term": "血浆脂蛋白", "body": "<strong>CM</strong>（最大最轻，转运外源性甘油三酯，apoB48，LPL 激活需 apoCⅡ）；<strong>VLDL</strong>（内源性甘油三酯，apoB100）；<strong>LDL</strong>（转运胆固醇到肝外，apoB100，致动脉粥样硬化）；<strong>HDL</strong>（逆向转运胆固醇回肝，apoAⅠ，抗动脉粥样硬化）；密度：CM &lt; VLDL &lt; LDL &lt; HDL，直径相反。---", "badge": {"level": 2, "freq": "2024 判", "name": "血浆脂蛋白分类与功能"}}, {"id": "c7b0", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "营养作用", "body": "氮平衡（总/正/负）判断蛋白质代谢状态；<strong>必需氨基酸 8 种</strong>（同蛋白质章口诀）；蛋白质互补作用。", "badge": {"level": 2, "freq": "2021 简（CO-Hb）", "name": "必需氨基酸、氮平衡、CO 与 Hb"}}, {"id": "c7b1", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "脱氨基作用", "body": "① <strong>转氨基</strong>（转氨酶催化、辅酶磷酸吡哆醛/VB6；只转移氨基不脱氨、可逆；GPT/谷丙、GOT/谷草是临床肝功能指标）；② <strong>L-谷氨酸氧化脱氨基</strong>（L-谷氨酸脱氢酶，线粒体，NAD(P)⁺）；③ <strong>联合脱氨基</strong>（转氨基 + 谷氨酸脱氢偶联，<strong>体内主要脱氨方式</strong>，可逆故兼管氨基酸合成与分解）；④ <strong>嘌呤核苷酸循环</strong>（骨骼肌、心肌的主要脱氨方式，不可逆）。", "badge": {"level": 4, "freq": "2022 问、2018-19 简", "name": "转氨基、联合脱氨基、α-酮戊二酸添补"}}, {"id": "c7b2", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "α-酮酸代谢", "body": "重新合成非必需氨基酸；氧化供能（进入 TCA）；生糖氨基酸 → 糖，生酮氨基酸（亮、赖）→ 酮体。<strong>α-酮戊二酸可经添补反应补充 TCA 中间物。</strong>", "badge": null}, {"id": "c7b3", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "氨的代谢", "body": "来源（氨基酸脱氨基为主、肠道吸收、肾分泌）；转运两形式：<strong>丙氨酸-葡萄糖循环</strong>（肌肉 → 肝，同时运氨和糖异生原料）、<strong>谷氨酰胺</strong>（脑、肌 → 肝/肾，谷氨酰胺是解氨毒和运氨的形式）；去路：肝合成尿素（主要）、合成非必需氨基酸和含氮化合物。", "badge": {"level": 2, "freq": "大纲必须掌握", "name": "氨的来源去路与转运"}}, {"id": "c7b4", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "鸟氨酸循环（尿素循环，肝线粒体+胞液）", "body": "① 线粒体：NH₃ + CO₂ + 2ATP → 氨甲酰磷酸（<strong>CPS-Ⅰ，限速酶</strong>，N-乙酰谷氨酸激活）→ +鸟氨酸 → 瓜氨酸（鸟氨酸氨甲酰转移酶）；② 胞液：瓜氨酸 + 天冬氨酸 → 精氨酸代琥珀酸（<strong>精氨酸代琥珀酸合成酶</strong>，耗 ATP→AMP）→ 精氨酸 + 延胡索酸（与 TCA 相连）；③ 精氨酸 → 尿素 + 鸟氨酸（精氨酸酶）。总反应：2NH₃ + CO₂ + 3ATP + H₂O → 尿素 + 2ADP + AMP + 4 个高能键；<strong>尿素分子两个 N：一个来自 NH₃、一个来自天冬氨酸</strong>。肝功能受损 → 高血氨 → 肝性脑病。- <strong>脱羧基作用</strong>（辅酶磷酸吡哆醛）：谷氨酸 → <strong>γ-氨基丁酸 GABA</strong>（抑制性神经递质）；组氨酸 → 组胺；色氨酸 → 5-羟色胺；半胱氨酸 → 牛磺酸。", "badge": {"level": 3, "freq": "2021 简、2024 判", "name": "鸟氨酸循环（部位、关键酶、氮来源、耗能）"}}, {"id": "c7b5", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "一碳单位", "body": "某些氨基酸分解产生、含一个碳原子的基团（甲基、亚甲基、次甲基、甲酰基、亚氨甲基）；<strong>来源：丝、甘、组、色</strong>（口诀「施舍竹竿」）；<strong>载体：四氢叶酸 FH₄</strong>；功能：嘌呤、嘧啶合成原料，参与甲基化。叶酸缺乏 → 巨幼细胞性贫血。", "badge": {"level": 2, "freq": "大纲必须掌握", "name": "一碳单位（来源、FH4 载体）"}}, {"id": "c7b6", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "甲硫氨酸循环", "body": "甲硫氨酸 + ATP → <strong>SAM（S-腺苷甲硫氨酸，体内最重要活性甲基供体）</strong> → 甲基转移后 → S-腺苷同型半胱氨酸 → 同型半胱氨酸 → 接受 N⁵-CH₃-FH₄ 的甲基（需甲基 B₁₂）→ 再生甲硫氨酸。维生素 B₁₂/叶酸缺乏 → 巨幼贫；同型半胱氨酸升高与动脉粥样硬化相关。", "badge": {"level": 2, "freq": "大纲列出", "name": "甲硫氨酸循环（SAM）"}}, {"id": "c7b7", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "苯丙氨酸与酪氨酸", "body": "苯丙氨酸 →（苯丙氨酸羟化酶）→ 酪氨酸（<strong>缺乏 → 苯丙酮尿症</strong>）；酪氨酸 → 多巴胺/去甲肾上腺素/肾上腺素、黑色素（缺乏 → 白化病）、甲状腺素、尿黑酸。", "badge": {"level": 2, "freq": "2024 选、2025 选（原料）", "name": "苯丙氨酸/酪氨酸代谢、血红素合成"}}, {"id": "c7b8", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "血红素合成", "body": "原料<strong>甘氨酸 + 琥珀酰 CoA + Fe²⁺</strong>；部位骨髓和肝（线粒体起始、胞液中间、线粒体结束）；限速酶 <strong>ALA 合酶</strong>（辅酶磷酸吡哆醛），受血红素负反馈调节；铅中毒抑制 ALA 脱水酶和亚铁螯合酶。", "badge": null}, {"id": "c7b9", "ch": 7, "chapter": "第七章 氨基酸代谢", "term": "CO 与血红蛋白", "body": "CO 与 Hb 亲和力约为 O₂ 的 250 倍，占据氧结合位点并使氧解离曲线左移，阻碍 O₂ 释放 → 组织缺氧（煤气中毒）。---", "badge": null}, {"id": "c8b0", "ch": 8, "chapter": "第八章 核苷酸代谢与代谢综合", "term": "嘌呤核苷酸从头合成", "body": "部位肝（其次小肠、胸腺）；原料：<strong>5-磷酸核糖-1-焦磷酸（PRPP，起始物）</strong>、<strong>天冬氨酸、谷氨酰胺、甘氨酸、CO₂、一碳单位（N¹⁰-甲酰 FH₄ ×2）</strong>；关键酶：PRPP 合成酶、磷酸核糖酰胺转移酶（ committed 步骤，受 AMP/GMP 反馈抑制）；先合成 <strong>IMP</strong>，再分支生成 AMP（需天冬氨酸）和 GMP（需谷氨酰胺）。", "badge": {"level": 4, "freq": "2020 简、2021 简、2024 选", "name": "嘌呤合成原料、IMP/痛风机制、别嘌呤醇"}}, {"id": "c8b1", "ch": 8, "chapter": "第八章 核苷酸代谢与代谢综合", "term": "补救合成", "body": "游离嘌呤碱 + PRPP → 嘌呤核苷酸（A→AMP 由 APRT；G/I→GMP/IMP 由 <strong>HGPRT</strong>）；脑、骨髓主要靠补救；HGPRT 缺陷 → Lesch-Nyhan 综合征（自毁容貌）。", "badge": {"level": 2, "freq": "2020 简（间接）", "name": "补救合成与 HGPRT"}}, {"id": "c8b2", "ch": 8, "chapter": "第八章 核苷酸代谢与代谢综合", "term": "嘌呤分解", "body": "核苷酸 → 核苷 → 嘌呤碱；次黄嘌呤/黄嘌呤 →（<strong>黄嘌呤氧化酶</strong>）→ <strong>尿酸</strong>（终产物，人、猿、鸟类排尿酸）；高尿酸 → 痛风；<strong>别嘌呤醇</strong>抑制黄嘌呤氧化酶治疗痛风。", "badge": null}, {"id": "c8b3", "ch": 8, "chapter": "第八章 核苷酸代谢与代谢综合", "term": "IMP 加重痛风机制", "body": "IMP 分解产生次黄嘌呤；同时 IMP 反馈抑制补救途径（HGPRT），使次黄嘌呤不能重新利用，只能经黄嘌呤氧化酶生成尿酸 → 血尿酸升高。", "badge": null}, {"id": "c8b4", "ch": 8, "chapter": "第八章 核苷酸代谢与代谢综合", "term": "嘧啶核苷酸从头合成", "body": "原料天冬氨酸、谷氨酰胺、CO₂、PRPP；先合成嘧啶环（<strong>CPS-Ⅱ</strong> 为关键酶，胞液；注意与尿素循环的线粒体 CPS-Ⅰ 区分）→ UMP → UTP → CTP（谷氨酰胺供氨）；dTMP 由 dUMP 甲基化（N⁵,N¹⁰-亚甲 FH₄ 供甲基；<strong>5-FU 抑制胸苷酸合酶</strong>）。", "badge": {"level": 2, "freq": "大纲列出", "name": "嘧啶合成与分解终产物"}}, {"id": "c8b5", "ch": 8, "chapter": "第八章 核苷酸代谢与代谢综合", "term": "抗代谢物", "body": "6-巯基嘌呤（6-MP，次黄嘌呤类似物，抑制酰胺转移酶）、<strong>氨甲蝶呤 MTX（二氢叶酸还原酶抑制剂，阻断 FH₄ 再生）</strong>、5-FU、阿糖胞苷。", "badge": {"level": 1, "freq": "大纲列出", "name": "抗代谢药物机制"}}, {"id": "c8b6", "ch": 8, "chapter": "第八章 核苷酸代谢与代谢综合", "term": "物质代谢综合", "body": "糖可转脂（乙酰 CoA），脂肪绝大部分不能转糖（仅甘油、奇数碳链例外）；除亮氨酸、赖氨酸外氨基酸可生糖；关键酶特点：催化速度最慢、催化单向反应、受多种代谢物调节；变构与共价修饰使各途径相互协调。---", "badge": {"level": 3, "freq": "2018-19 简、2025 简（乙酰 CoA 来源去路）", "name": "物质代谢相互联系"}}, {"id": "c9b0", "ch": 9, "chapter": "第九章 维生素", "term": "定义", "body": "机体必需、需从食物摄取的<strong>微量有机化合物</strong>；不构成组织成分、不提供能量，是调节代谢所必需（多为辅酶/辅基成分）。", "badge": {"level": 3, "freq": "2024 简", "name": "维生素概念与缺乏症（维 A）"}}, {"id": "c9b1", "ch": 9, "chapter": "第九章 维生素", "term": "脂溶性", "body": "A（<strong>夜盲症、干眼病</strong>；视黄酸经核受体调控基因表达）；D（佝偻病、骨软化症；1,25-(OH)₂-D₃ 具激素活性）；E（抗氧化、与生育有关）；K（参与凝血因子 Ⅱ、Ⅶ、Ⅸ、Ⅹ 合成，缺乏出血）。", "badge": null}, {"id": "c9b2", "ch": 9, "chapter": "第九章 维生素", "term": "水溶性", "body": "B1（脚气病；TPP，丙酮酸脱氢酶等辅酶）；B2（口角炎；FAD、FMN）；PP（癞皮病；NAD⁺、NADP⁺）；B6（磷酸吡哆醛：转氨酶、脱羧酶、ALA 合酶辅酶）；泛酸（CoA）；生物素（羧化酶辅基）；叶酸（FH₄，巨幼贫）；B12（甲硫氨酸合酶辅酶，巨幼贫、神经症状）；C（坏血病；抗氧化、羟化反应辅因子）。", "badge": {"level": 2, "freq": "2020 选", "name": "维生素-辅酶对应"}}, {"id": "c9b3", "ch": 9, "chapter": "第九章 维生素", "term": "与基因表达调控", "body": "维生素 A（视黄酸受体）、维生素 D（类固醇受体家族）直接经核受体调控转录。---", "badge": null}, {"id": "c10b0", "ch": 10, "chapter": "第十章 肝胆生化与血液生化", "term": "生物转化", "body": "肝脏对非营养物质（药物、毒物、代谢废物）进行化学改造，使其灭活/解毒（有的反而增毒）并利于排泄。两相反应：<strong>Ⅰ相：氧化、还原、水解</strong>（加单氧酶系 CYP450 最重要）；<strong>Ⅱ相：结合反应</strong>（葡糖醛酸结合、硫酸化、谷胱甘肽、甲基化、乙酰化）。特点：多样性与连续性；解毒与致毒双重性（如黄曲霉素经转化后致癌性增强）。", "badge": {"level": 2, "freq": "2018-19 选", "name": "生物转化（概念、两相反应）"}}, {"id": "c10b1", "ch": 10, "chapter": "第十章 肝胆生化与血液生化", "term": "胆汁酸代谢", "body": "<strong>初级胆汁酸</strong>（胆酸、鹅脱氧胆酸）由胆固醇合成，<strong>7α-羟化酶为限速酶</strong>；与甘氨酸/牛磺酸结合 → 结合胆汁酸；入肠后经肠菌作用 → <strong>次级胆汁酸</strong>（脱氧胆酸、石胆酸）；<strong>肠肝循环</strong>回收约 95%；功能：乳化脂肪、促进脂溶性维生素吸收、负反馈抑制 7α-羟化酶。", "badge": {"level": 3, "freq": "2024 判、2025 选", "name": "胆汁酸合成（原料、限速酶）"}}, {"id": "c10b2", "ch": 10, "chapter": "第十章 肝胆生化与血液生化", "term": "胆色素代谢", "body": "血红素 →（<strong>血红素加氧酶，限速</strong>）→ 胆绿素 → <strong>游离（未结合）胆红素</strong>（脂溶性、毒性，可通过血脑屏障 → 核黄疸）；肝摄取后与 UDPGA 结合 → <strong>结合胆红素</strong>（水溶性、无毒）→ 随胆汁入肠 → 尿胆原 → 部分重吸收（肠肝循环）、部分氧化为尿胆素随粪便排出（粪便颜色来源）。<strong>黄疸三型</strong>：溶血性（游离胆红素升高）、肝细胞性（两者均升）、阻塞性（结合胆红素反流入血），尿胆红素/尿胆原各有特征。", "badge": {"level": 2, "freq": "大纲列出", "name": "胆红素代谢与黄疸"}}, {"id": "c10b3", "ch": 10, "chapter": "第十章 肝胆生化与血液生化", "term": "血红素合成", "body": "原料甘氨酸 + 琥珀酰 CoA + Fe²⁺；限速酶 ALA 合酶（磷酸吡哆醛为辅酶）。", "badge": {"level": 3, "freq": "2024 选、2025 选", "name": "血红素合成原料"}}, {"id": "c10b4", "ch": 10, "chapter": "第十章 肝胆生化与血液生化", "term": "EPO", "body": "肾分泌，促进红系祖细胞增殖分化（临床用于肾性贫血）。---", "badge": null}, {"id": "c11b0", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "基因", "body": "遗传的功能单位，编码有功能的 RNA 或蛋白质；<strong>基因组</strong>＝一个细胞/病毒全部遗传物质。", "badge": {"level": 2, "freq": "2020 判", "name": "基因组特点与质粒"}}, {"id": "c11b1", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "基因组特点", "body": "病毒（重叠基因、单倍体）；原核（<strong>操纵子</strong>结构、多顺反子 mRNA、类核、质粒）；真核（断裂基因含内含子、重复序列、<strong>单顺反子</strong>、端粒、存在多态性）。", "badge": null}, {"id": "c11b2", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "质粒", "body": "染色体外能自主复制的环状双链 DNA；作克隆载体需具备：复制起点（ori）、选择标记（抗性基因）、多克隆位点。", "badge": null}, {"id": "c11b3", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "DNA 复制基本规律", "body": "<strong>半保留复制</strong>（Meselson-Stahl ¹⁵N 实验证明）、<strong>半不连续复制</strong>（前导链连续、后随链以冈崎片段不连续合成）、双向复制。", "badge": {"level": 3, "freq": "2025 选（冈崎片段）、大纲必须掌握", "name": "复制基本规律与过程（前导/后随链、冈崎片段）"}}, {"id": "c11b4", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "原核复制酶系统", "body": "<strong>DNA pol Ⅲ</strong>（主要复制酶，有 3′→5′ 外切酶校对活性）；<strong>DNA pol Ⅰ</strong>（5′→3′ 外切酶去除引物、填补缺口、修复）；引物酶 DnaG（合成 RNA 引物）；解旋酶 DnaB；SSB 稳定单链；DNA 连接酶（封口冈崎片段切口）；拓扑异构酶（解旋防缠绕）。", "badge": {"level": 4, "freq": "2020 简、2021 简", "name": "原核 DNA 复制的酶系统"}}, {"id": "c11b5", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "复制过程", "body": "起始（DnaA 识别 oriC）→ 延伸（引物酶引物 + pol Ⅲ 延伸；后随链冈崎片段，pol Ⅰ 去引物补缺口，连接酶封口）→ 终止。", "badge": null}, {"id": "c11b6", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "端粒与端粒酶", "body": "真核染色体末端结构；<strong>端粒酶自带 RNA 模板</strong>逆转录延伸端粒（「爬行」模型）；体细胞端粒酶不活跃，肿瘤细胞端粒酶重新激活。", "badge": null}, {"id": "c11b7", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "逆转录", "body": "以 RNA 为模板合成 DNA（逆转录病毒，如 HIV）；<strong>逆转录酶三种活性</strong>：RNA 依赖的 DNA 聚合酶活性、DNA 依赖的 DNA 聚合酶活性、<strong>RNase H 活性</strong>（降解 RNA-DNA 杂合链中的 RNA）；意义：补充中心法则、获得 cDNA。", "badge": null}, {"id": "c11b8", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "DNA 损伤修复", "body": "① 直接修复（光修复酶，修复嘒啶二聚体）；② 碱基切除修复（DNA 糖苷酶识别异常碱基）；③ <strong>核苷酸切除修复</strong>（修复 UV 损伤、 bulky 加合物，UvrABC）；④ 错配修复；⑤ 重组修复（复制后修复）；⑥ SOS 修复（应急、易错）。", "badge": {"level": 2, "freq": "大纲列出", "name": "DNA 损伤修复类型"}}, {"id": "c11b9", "ch": 11, "chapter": "第十一章 基因、基因组与 DNA 的合成", "term": "D 环复制", "body": "线粒体 DNA 的<strong>不对称复制</strong>方式（先复制重链、轻链后启动）。---", "badge": {"level": 2, "freq": "2023 判", "name": "线粒体 D 环复制"}}, {"id": "c12b0", "ch": 12, "chapter": "第十二章 RNA 的生物合成", "term": "转录基本概念", "body": "以 DNA 一条链为模板合成 RNA 的过程；<strong>模板链（反义链）/编码链（有义链）</strong>；<strong>不对称转录</strong>（只以一条链为模板、模板链随基因而异）。", "badge": {"level": 1, "freq": "大纲列出", "name": "不对称转录、模板链概念"}}, {"id": "c12b1", "ch": 12, "chapter": "第十二章 RNA 的生物合成", "term": "原核 RNA 聚合酶", "body": "一种酶，α₂ββ′σ 构成<strong>全酶</strong>；<strong>σ 因子识别启动子</strong>（-35 区 TTGACA、-10 区 Pribnow 盒 TATAAT）；起始后 σ 脱落，α₂ββ′<strong>核心酶</strong>负责延伸；利福平抑制起始。", "badge": {"level": 4, "freq": "2022 问、2023 判、2024 判", "name": "σ 因子、启动子识别、核心酶与全酶"}}, {"id": "c12b2", "ch": 12, "chapter": "第十二章 RNA 的生物合成", "term": "真核 RNA 聚合酶", "body": "pol Ⅰ——除 5S 外的 rRNA；pol Ⅱ——mRNA 前体 + snRNA（对 α-鹅膏蕈碱最敏感）；pol Ⅲ——tRNA + 5S rRNA。", "badge": {"level": 2, "freq": "2022 选", "name": "RNA 聚合酶分工"}}, {"id": "c12b3", "ch": 12, "chapter": "第十二章 RNA 的生物合成", "term": "转录过程", "body": "起始（全酶识别启动子 → 闭合复合物 → 开放复合物，局部解链）→ 延伸（5′→3′ 方向加入 NTP，焦磷酸水解供能）→ 终止：原核两种方式——<strong>ρ 依赖性</strong>（ρ 因子 ATP 酶解旋）和 <strong>ρ 非依赖性</strong>（茎环结构 + 寡聚 U）。", "badge": {"level": 2, "freq": "2022 问", "name": "转录终止方式（ρ 依赖/非依赖）"}}, {"id": "c12b4", "ch": 12, "chapter": "第十二章 RNA 的生物合成", "term": "原核 vs 真核转录", "body": "场所（拟核 vs 核）；酶（1 种 vs 3 种）；原核转录翻译偶联、真核分隔；产物加工不同。", "badge": null}, {"id": "c12b5", "ch": 12, "chapter": "第十二章 RNA 的生物合成", "term": "真核转录后加工", "body": "① <strong>5′ 加帽</strong>：m⁷GpppN（鸟苷酰转移酶 + 甲基转移酶；抗降解、促翻译起始、助出核）；② <strong>3′ 加 polyA 尾</strong>：先切割（识别 AAUAAA）再加尾（稳定 mRNA）；③ <strong>剪接</strong>：snRNP 组装成<strong>剪接体</strong>切除内含子连接外显子——<strong>两次转酯反应</strong>（分支点 A 的 2′-OH 攻击 5′ 剪接位点形成<strong>套索</strong>；两外显子连接并释放内含子），GU-AG 法则；转酯本身不耗 ATP（剪接体组装耗 ATP）；④ RNA 编辑（改变编码信息）。", "badge": {"level": 4, "freq": "2023 简、2024 简、2025 简", "name": "转录后加工（加帽、加尾、剪接）及原核/真核差别"}}, {"id": "c12b6", "ch": 12, "chapter": "第十二章 RNA 的生物合成", "term": "可变剪接", "body": "同一前体 mRNA 通过不同剪接方式（外显子跳跃、内含子保留、互斥外显子等）产生多种成熟 mRNA，增加蛋白质多样性（如纤连蛋白、降钙素/CGRP）。---", "badge": {"level": 3, "freq": "2023 简、2025 选", "name": "可变剪接"}}, {"id": "c13b0", "ch": 13, "chapter": "第十三章 蛋白质的生物合成", "term": "合成体系", "body": "mRNA（模板）、tRNA（转运氨基酸）、rRNA/核糖体（场所）、20 种氨基酸、氨酰-tRNA 合成酶等酶系、起始/延伸/释放因子、能量（ATP + GTP）。", "badge": null}, {"id": "c13b1", "ch": 13, "chapter": "第十三章 蛋白质的生物合成", "term": "遗传密码", "body": "64 个密码子，61 个编码氨基酸 + 3 个终止密码（UAA、UAG、UGA），AUG 兼起始密码子（编码 Met）。特性：① <strong>方向性</strong>（沿 mRNA 5′→3′ 阅读）；② <strong>连续性</strong>（不重叠、无标点）；③ <strong>简并性</strong>（一个氨基酸可有多个密码子，降低突变危害）；④ <strong>通用性</strong>（生物界通用，线粒体略有例外）；⑤ <strong>摆动性</strong>（反密码子第 1 位与密码子第 3 位配对不严格，次黄嘌呤 I 可配 U/C/A）。", "badge": {"level": 3, "freq": "2022 选+问", "name": "遗传密码特性与保守替代"}}, {"id": "c13b2", "ch": 13, "chapter": "第十三章 蛋白质的生物合成", "term": "氨基酸活化", "body": "氨酰-tRNA 合成酶（特异性极高，「第二遗传密码」）催化：氨基酸 + ATP → 氨酰-AMP（PPi 水解驱动）→ 转移到 tRNA 3′-CCA 端；<strong>每活化 1 个氨基酸消耗 2 个高能磷酸键</strong>。", "badge": null}, {"id": "c13b3", "ch": 13, "chapter": "第十三章 蛋白质的生物合成", "term": "核糖体功能位点", "body": "A 位（氨酰-tRNA 进位）、P 位（肽酰-tRNA 所在）、E 位（空载 tRNA 排出）；肽酰转移酶活性由 <strong>23S rRNA 承担（核酶）</strong>。", "badge": {"level": 3, "freq": "2023 选判", "name": "核糖体结构、A/P/E 位、核酶活性"}}, {"id": "c13b4", "ch": 13, "chapter": "第十三章 蛋白质的生物合成", "term": "原核起始", "body": "fMet-tRNA^fMet 直接进入 <strong>P 位</strong>；mRNA 的 <strong>SD 序列</strong>与 16S rRNA 配对定位起始；真核起始为 Met-tRNA + 扫描机制（帽依赖）。", "badge": null}, {"id": "c13b5", "ch": 13, "chapter": "第十三章 蛋白质的生物合成", "term": "延伸循环", "body": "① <strong>进位</strong>：EF-Tu·GTP 护送氨酰-tRNA 入 A 位（耗 1 GTP）；② <strong>成肽</strong>：肽酰转移酶将 P 位肽链转移到 A 位氨基酸氨基上形成新肽键（核酶催化）；③ <strong>转位</strong>：EF-G·GTP 使核糖体沿 mRNA 移动一个密码子，A 位空出（耗 1 GTP）。<strong>每延长 1 个氨基酸共耗 4 个高能键</strong>（活化 2 + 进位 1 + 转位 1）。", "badge": {"level": 4, "freq": "2022 简、2024 问", "name": "氨基酸接入肽链全过程（活化→进位→成肽→转位）"}}, {"id": "c13b6", "ch": 13, "chapter": "第十三章 蛋白质的生物合成", "term": "终止", "body": "释放因子（RF）识别终止密码子进入 A 位，<strong>诱导肽酰转移酶表现为酯酶活性</strong>，水解肽酰-tRNA 酯键释放新生肽。", "badge": null}, {"id": "c13b7", "ch": 13, "chapter": "第十三章 蛋白质的生物合成", "term": "翻译后加工", "body": "折叠（分子伴侣 Hsp70、GroES/GroEL）、切除（信号肽、N 端 Met）、修饰（磷酸化、糖基化、羟基化、二硫键）、亚基聚合、<strong>靶向运输（信号肽假说：SRP 识别信号肽 → 共翻译转运至内质网）</strong>。", "badge": {"level": 2, "freq": "2018-19 简", "name": "翻译后加工与靶向运输"}}, {"id": "c13b8", "ch": 13, "chapter": "第十三章 蛋白质的生物合成", "term": "与医学", "body": "抗生素（四环素阻断 A 位、氯霉素抑制原核肽酰转移酶、链霉素引起误读、<strong>嘌呤霉素结构类似酪氨酰-tRNA 提前终止肽链</strong>）；白喉毒素使 EF-2 发生 ADP 核糖化失活。---", "badge": {"level": 1, "freq": "大纲案例", "name": "蛋白质合成与抗生素"}}, {"id": "c14b0", "ch": 14, "chapter": "第十四章 基因表达的调控", "term": "基本概念", "body": "基因表达＝基因转录和翻译的过程；具有<strong>时间（阶段）特异性和空间（组织）特异性</strong>；管家基因组成性表达；可经诱导（表达增强）和阻遏（表达减弱）调节。", "badge": null}, {"id": "c14b1", "ch": 14, "chapter": "第十四章 基因表达的调控", "term": "乳糖操纵子（负调控 + 正调控协调）", "body": "结构：调节基因 <strong>lacI</strong>（编码阻遏蛋白）、启动子 P、操纵序列 O、CAP 结合位点；结构基因 <strong>lacZ</strong>（β-半乳糖苷酶）、<strong>lacY</strong>（通透酶）、<strong>lacA</strong>（乙酰基转移酶）。① <strong>负调控</strong>：无乳糖时阻遏蛋白结合 O 区阻断转录；有乳糖时异乳糖结合阻遏蛋白使其变构脱落，转录开放。② <strong>正调控</strong>：<strong>CAP（分解代谢物激活蛋白）-cAMP</strong> 复合物结合 CAP 位点弯曲 DNA、促进 RNA pol 结合；葡萄糖低 → cAMP 高 → CAP 结合 → 转录增强；葡萄糖高 → cAMP 低 → 正调控解除。协调调节保证「有乳糖且无葡萄糖时」高效表达。", "badge": {"level": 4, "freq": "2020 简、2024 简", "name": "乳糖操纵子（结构、负调控、CAP 正调控）"}}, {"id": "c14b2", "ch": 14, "chapter": "第十四章 基因表达的调控", "term": "色氨酸操纵子（阻遏调节 + 衰减作用两套机制）", "body": "① <strong>阻遏调节（细调）</strong>：Trp 为共阻遏物，与阻遏蛋白结合使其活化并结合操纵序列阻断转录；Trp 缺乏时阻遏解除。② <strong>衰减作用（粗调）</strong>：前导序列含 4 个可互补配对区段、<strong>2 个相邻 Trp 密码子</strong>；Trp 充足时核糖体快速翻译前导肽、覆盖序列 2 → 序列 3-4 配对形成<strong>终止型茎环 + 下游寡聚 U</strong> → 转录衰减终止；Trp 缺乏时核糖体停滞于 Trp 密码子 → 序列 2-3 配对形成<strong>抗终止结构</strong> → 转录继续。衰减作用使基因表达对 Trp 浓度变化快速、精细响应。", "badge": {"level": 4, "freq": "2020 问（12 分）、2018-19 问", "name": "色氨酸操纵子（阻遏 + 衰减两套机制）"}}, {"id": "c14b3", "ch": 14, "chapter": "第十四章 基因表达的调控", "term": "真核调控层次", "body": "① 染色质水平：组蛋白<strong>乙酰化 → 染色质疏松、转录活跃</strong>；去乙酰化 → 抑制；DNA <strong>甲基化（CpG 岛）→ 转录抑制</strong>；② 顺式作用元件：<strong>启动子、增强子、沉默子、绝缘子</strong>（绝缘子阻隔增强子/沉默子的位置效应）；③ 反式作用因子（转录因子）：DNA 结合域（锌指、<strong>亮氨酸拉链</strong>、螺旋-环-螺旋）+ 激活域。", "badge": {"level": 3, "freq": "2023 选判", "name": "顺式作用元件（沉默子、绝缘子、CpG）"}}, {"id": "c14b4", "ch": 14, "chapter": "第十四章 基因表达的调控", "term": "RNA 干扰", "body": "<strong>miRNA</strong>（内源发夹状转录本经 Drosha/Dicer 加工 → RISC 复合物 → 抑制翻译或促进 mRNA 降解，调控生长发育）；<strong>siRNA</strong>（外源长 dsRNA 经 Dicer 加工 → RISC 特异性切割降解靶 mRNA，抗病毒防御）。---", "badge": {"level": 3, "freq": "2018-19 选、2022 判、2023 选判、2025 问", "name": "miRNA / siRNA 与 RNAi"}}, {"id": "c15b0", "ch": 15, "chapter": "第十五章 常用分子生物学技术", "term": "分子杂交", "body": "基于<strong>碱基互补配对</strong>，用标记的已知核酸探针（放射性同位素、生物素、地高辛、荧光标记）检测待测样品中的同源序列。", "badge": null}, {"id": "c15b1", "ch": 15, "chapter": "第十五章 常用分子生物学技术", "term": "印迹技术", "body": "<strong>Southern blot（检测 DNA）</strong>：酶切 → 电泳分离 → 碱变性 → 转膜（NC/PVDF）→ 探针杂交 → 放射自显影/显色；<strong>Northern blot（检测 RNA）</strong>；<strong>Western blot（检测蛋白质，原理为抗原-抗体反应）</strong>：SDS-PAGE 分离 → 转膜 → 封闭 → 一抗孵育 → 酶标二抗 → 显色/化学发光。", "badge": {"level": 4, "freq": "2020 选、2022 简、2023 简", "name": "Western blot 概念与步骤"}}, {"id": "c15b2", "ch": 15, "chapter": "第十五章 常用分子生物学技术", "term": "PCR", "body": "体系（模板、一对引物、Taq DNA 聚合酶、dNTP、Mg²⁺、缓冲液）；三步循环——<strong>变性 94–95℃（30s 左右）→ 退火（低于引物 Tm 5℃左右）→ 延伸 72℃（Taq 最适温度）</strong>，25–35 个循环目的片段扩增 2ⁿ 倍；应用：基因克隆、突变检测、病原体诊断、法医鉴定；衍生：RT-PCR（逆转录-PCR 检测 RNA）、qPCR（定量）。", "badge": {"level": 4, "freq": "2018-19 选、2020 简、2021 简、2022 选+问", "name": "PCR（原理、三步、Mullis、应用）"}}, {"id": "c15b3", "ch": 15, "chapter": "第十五章 常用分子生物学技术", "term": "测序技术", "body": "<strong>一代 Sanger（双脱氧链终止法）</strong>——ddNTP 无 3′-OH 使链终止；<strong>二代（高通量）</strong>——边合成边测序、短读长（数十至数百 bp）、可逆终止子/桥式 PCR 簇（Illumina）等；<strong>三代（单分子）</strong>——无需 PCR 扩增、超长读长（PacBio SMRT 零模波导、Oxford Nanopore 纳米孔直接测电信号）。代际之间原理不同。", "badge": {"level": 3, "freq": "2020 判、2023 选判", "name": "测序技术代际原理差异"}}, {"id": "c15b4", "ch": 15, "chapter": "第十五章 常用分子生物学技术", "term": "其他技术", "body": "EMSA（凝胶迁移率变动分析，研究蛋白质-DNA 结合）；DNase Ⅰ 足迹法（确定蛋白质结合的 DNA 序列）；<strong>酵母双杂交</strong>（研究蛋白质-蛋白质相互作用）；基因文库（基因组文库/ cDNA 文库）；基因芯片（高通量杂交）；RNA-seq。", "badge": {"level": 2, "freq": "2018-19 选", "name": "酵母双杂交、足迹法、EMSA 等用途"}}, {"id": "c15b5", "ch": 15, "chapter": "第十五章 常用分子生物学技术", "term": "古 DNA PCR 的两个困难", "body": "① 模板高度降解（片段短、量少、化学修饰损伤）；② PCR 极敏感——微量现代 DNA 污染被指数放大 + 样品中 PCR 抑制剂（腐殖酸等）干扰。---", "badge": {"level": 2, "freq": "2022 简", "name": "古 DNA 扩增困难"}}, {"id": "c16b0", "ch": 16, "chapter": "第十六章 DNA 重组与重组 DNA 技术", "term": "工具酶", "body": "<strong>限制性核酸内切酶（Ⅱ型识别回文序列、产生黏性/平末端）</strong>、<strong>DNA 连接酶</strong>（封口磷酸二酯键）、DNA 聚合酶、碱性磷酸酶（防止载体自连）等。", "badge": {"level": 1, "freq": "大纲列出", "name": "限制性内切酶、连接酶"}}, {"id": "c16b1", "ch": 16, "chapter": "第十六章 DNA 重组与重组 DNA 技术", "term": "载体", "body": "<strong>质粒</strong>（自主复制、抗性筛选、多克隆位点）、λ 噬菌体载体、病毒载体、BAC/YAC（大片段）；表达载体（含启动子、终止子、标签序列）。", "badge": {"level": 2, "freq": "2020 判", "name": "质粒载体的条件"}}, {"id": "c16b2", "ch": 16, "chapter": "第十六章 DNA 重组与重组 DNA 技术", "term": "DNA 克隆基本步骤", "body": "① 目的基因获取（基因组酶切、PCR 扩增、化学合成、cDNA）；② 载体用同种限制酶切割；③ 目的基因与载体用 DNA 连接酶连接成重组 DNA；④ 导入宿主细胞（转化大肠杆菌，氯化钙制备感受态）；⑤ 筛选与鉴定（抗性平板初筛、蓝白斑、菌落 PCR、酶切鉴定、测序验证）；⑥ 阳性克隆扩增保存。", "badge": {"level": 4, "freq": "2022 简、2023 简", "name": "DNA 克隆基本步骤"}}, {"id": "c16b3", "ch": 16, "chapter": "第十六章 DNA 重组与重组 DNA 技术", "term": "应用", "body": "重组蛋白生产（人胰岛素、生长激素）、基因工程疫苗、基因敲除/敲入动物、转基因植物、分子诊断。---", "badge": null}, {"id": "c17b0", "ch": 17, "chapter": "第十七章 癌基因、抑癌基因与生长因子", "term": "原癌基因与癌基因", "body": "原癌基因是正常细胞中存在的、编码生长因子/受体/信号转导蛋白/转录因子的基因（如 <strong>sis</strong>（生长因子）、<strong>erbB</strong>（受体）、<strong>ras、abl</strong>（信号转导）、<strong>myc、fos</strong>（核内转录因子））；被异常激活后成为癌基因，导致细胞癌变。", "badge": null}, {"id": "c17b1", "ch": 17, "chapter": "第十七章 癌基因、抑癌基因与生长因子", "term": "癌基因活化方式（4 种）", "body": "① <strong>点突变</strong>（如 ras 基因突变，编码的 GTPase 失活，持续激活信号）；② <strong>基因扩增</strong>（拷贝数大增，如神经母细胞瘤 N-myc）；③ <strong>染色体易位/重排</strong>（如慢性粒细胞白血病费城染色体 t(9;22) 形成 bcr-abl 融合基因；Burkitt 淋巴瘤 myc 与免疫球蛋白基因位点并列）；④ <strong>病毒启动子/增强子插入</strong>。", "badge": {"level": 4, "freq": "2020 选、2021 选判、2023 选", "name": "癌基因活化方式"}}, {"id": "c17b2", "ch": 17, "chapter": "第十七章 癌基因、抑癌基因与生长因子", "term": "抑癌基因", "body": "抑制细胞增殖、促进分化凋亡的基因；<strong>Rb</strong>（视网膜母细胞瘤，控制 G1/S 关卡，结合并抑制 E2F）；<strong>p53</strong>（「基因组卫士」：DNA 损伤时阻滞细胞周期于 G1 以便修复，修复失败则诱导凋亡）；APC、p16、BRCA1/2 等。<strong>抑癌基因需两个等位基因都失活才致癌</strong>（杂合性丢失 LOH）。", "badge": {"level": 3, "freq": "2021、2023 选判", "name": "代表性癌基因/抑癌基因名称"}}, {"id": "c17b3", "ch": 17, "chapter": "第十七章 癌基因、抑癌基因与生长因子", "term": "生长因子", "body": "调节细胞生长与增殖的多肽（如 EGF、PDGF、TGF-β）。---", "badge": null}, {"id": "c18b0", "ch": 18, "chapter": "第十八章 基因诊断与基因治疗", "term": "基因诊断", "body": "利用分子生物学技术检测基因结构/表达异常进行疾病诊断；方法：核酸分子杂交、PCR（含 qPCR、RT-PCR）、DNA 测序、基因芯片、Southern/Northern 分析；分直接诊断（检测突变）和间接诊断（连锁分析）。", "badge": {"level": 1, "freq": "大纲列出", "name": "基因诊断/治疗的基本策略"}}, {"id": "c18b1", "ch": 18, "chapter": "第十八章 基因诊断与基因治疗", "term": "基因治疗", "body": "将正常基因导入靶细胞纠正或补偿缺陷基因；策略：基因增补（导入正常基因）、基因置换、基因编辑（CRISPR-Cas9）、RNA 干扰；载体：病毒载体（逆转录病毒、腺病毒、AAV）与非病毒载体。", "badge": {"level": 2, "freq": "2023 选", "name": "基因治疗的伦理边界（不得改造生殖细胞）"}}, {"id": "c18b2", "ch": 18, "chapter": "第十八章 基因诊断与基因治疗", "term": "伦理边界", "body": "<strong>只允许体细胞基因治疗，禁止改造生殖细胞/胚胎基因</strong>（可遗传给后代）；胚胎基因编辑（贺建奎事件）违反伦理法规。---", "badge": null}, {"id": "c19b0", "ch": 19, "chapter": "第十九章 组学与系统生物学", "term": "基因组学", "body": "研究全部基因的结构、功能与相互关系（人类基因组计划）。", "badge": {"level": 2, "freq": "2023 选", "name": "组学的概念与分类"}}, {"id": "c19b1", "ch": 19, "chapter": "第十九章 组学与系统生物学", "term": "转录组学", "body": "特定条件下全部 RNA 的表达谱（RNA-seq、芯片）。", "badge": null}, {"id": "c19b2", "ch": 19, "chapter": "第十九章 组学与系统生物学", "term": "蛋白质组学", "body": "全部蛋白质的表达、修饰与相互作用（双向电泳、质谱）。", "badge": null}, {"id": "c19b3", "ch": 19, "chapter": "第十九章 组学与系统生物学", "term": "代谢组学", "body": "全部小分子代谢物的动态变化。", "badge": null}, {"id": "c19b4", "ch": 19, "chapter": "第十九章 组学与系统生物学", "term": "系统生物学", "body": "整合各组学数据，从整体水平理解生命系统。<strong>注意</strong>：「氨基酸组学」不是公认的组学分类。---", "badge": null}]};
+const CARDS = DATA.cards;
+const CH = DATA.chapters;
+const LV = {4:["●","必考","b4"],3:["◐","常考","b3"],2:["○","一般","b2"],1:["△","了解","b1"]};
+const MN = ["","有印象","熟悉","掌握","能默写"];
+const storeKey = "bioCardsMasteryV2";
+let mastery = {};
+try{ mastery = JSON.parse(localStorage.getItem(storeKey)||"{}") }catch(e){}
+const save = ()=> localStorage.setItem(storeKey, JSON.stringify(mastery));
+
+// 章节下拉
+const chSel = document.getElementById("chSel");
+CH.forEach((t,i)=>{ const o=document.createElement("option"); o.value=i; o.textContent=t; chSel.appendChild(o); });
+
+let order = CARDS.map((_,i)=>i);
+let shuffled = false;
+
+function cardHtml(c){
+  const m = mastery[c.id]||0;
+  let badge="";
+  if(c.badge){
+    const [sym,name,cls] = LV[c.badge.level];
+    badge = `<span class="badge ${cls}">${sym} ${name}</span>`;
+    if(c.badge.freq && c.badge.freq!=="未考")
+      badge += `<span class="freq">${c.badge.freq}</span>`;
+  }
+  const mchip = m? `<span class="mchip m${m}">${"★".repeat(m)} ${MN[m]}</span>` : "";
+  const mbtns = [1,2,3,4].map(v=>
+    `<button class="m${v} ${m===v?'on':''}" data-m="${v}">${"★".repeat(v)}</button>`).join("");
+  return `<div class="card" data-id="${c.id}" data-ch="${c.ch}">
+    <div class="meta">${badge}${mchip}</div>
+    <div class="term">${c.term}</div>
+    <div class="hintline">点击显示答案 ↓</div>
+    <div class="ans">${c.body}</div>
+    <div class="mrow">${mbtns}</div>
+  </div>`;
+}
+
+function render(){
+  const chF = chSel.value, lvF = document.getElementById("lvSel").value,
+        msF = document.getElementById("msSel").value,
+        q = document.getElementById("q").value.trim().toLowerCase();
+  const list = document.getElementById("list");
+  let html = "", lastCh = -1, shown = 0;
+  const seq = shuffled ? order : CARDS.map((_,i)=>i);
+  for(const i of seq){
+    const c = CARDS[i];
+    if(chF!=="" && c.ch!==+chF) continue;
+    const lv = c.badge? c.badge.level : 0;
+    if(lvF!=="" && lv!==+lvF) continue;
+    const m = mastery[c.id]||0;
+    if(msF!=="" && m!==+msF) continue;
+    if(q){
+      const hay = (c.term+" "+c.chapter+" "+c.body.replace(/<[^>]+>/g,"")).toLowerCase();
+      if(!hay.includes(q)) continue;
+    }
+    if(c.ch!==lastCh){
+      if(lastCh!==-1) html += "</div>";
+      html += `<div class="chap-h"><span class="n">第${["零","一","二","三","四","五","六","七","八","九","十","十一","十二","十三","十四","十五","十六","十七","十八","十九"][c.ch]||c.ch}部分</span>${c.chapter}</div><div class="grid">`;
+      lastCh = c.ch;
+    }
+    html += cardHtml(c);
+    shown++;
+  }
+  if(lastCh!==-1) html += "</div>";
+  list.innerHTML = html;
+  document.getElementById("emptyTip").style.display = shown? "none":"block";
+  updateStat();
+}
+
+function updateStat(){
+  const total = CARDS.length;
+  const cnt = [0,0,0,0,0];
+  CARDS.forEach(c=>{ cnt[mastery[c.id]||0]++; });
+  const done = total - cnt[0];
+  document.getElementById("statTxt").textContent = `已自评 ${done}/${total}`;
+  const pct = v => (total? v/total*100:0)+"%";
+  document.getElementById("pb1").style.width = pct(cnt[1]);
+  document.getElementById("pb2").style.width = pct(cnt[2]);
+  document.getElementById("pb3").style.width = pct(cnt[3]);
+  document.getElementById("pb4").style.width = pct(cnt[4]);
+}
+
+// 事件委托
+document.getElementById("list").addEventListener("click", e=>{
+  const card = e.target.closest(".card");
+  if(!card) return;
+  const mb = e.target.closest("button[data-m]");
+  if(mb){
+    e.stopPropagation();
+    const id = card.dataset.id, v = +mb.dataset.m;
+    if((mastery[id]||0)===v) delete mastery[id]; else mastery[id]=v;
+    save();
+    // 只更新这张卡的按钮与徽标区，避免重排
+    const m = mastery[id]||0;
+    card.querySelectorAll(".mrow button").forEach(b=>{
+      b.classList.toggle("on", +b.dataset.m===m);
+    });
+    let chip = card.querySelector(".mchip");
+    if(m){
+      if(!chip){ chip=document.createElement("span"); card.querySelector(".meta").appendChild(chip); }
+      chip.className = "mchip m"+m;
+      chip.textContent = "★".repeat(m)+" "+MN[m];
+    } else if(chip){ chip.remove(); }
+    updateStat();
+    return;
+  }
+  card.classList.toggle("open");
+});
+
+document.getElementById("shuffleBtn").onclick = ()=>{
+  shuffled = true;
+  order = CARDS.map((_,i)=>i);
+  for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+};
+document.getElementById("expandBtn").onclick = ()=> document.querySelectorAll(".card").forEach(c=>c.classList.add("open"));
+document.getElementById("collapseBtn").onclick = ()=> document.querySelectorAll(".card").forEach(c=>c.classList.remove("open"));
+[chSel,"lvSel","msSel"].forEach(id=>{
+  document.getElementById(id==="lvSel"?"lvSel":id==="msSel"?"msSel":"chSel").addEventListener("change", render);
+});
+document.getElementById("q").addEventListener("input", render);
+
+const topBtn = document.getElementById("topBtn");
+window.addEventListener("scroll", ()=>{ topBtn.style.display = window.scrollY>400? "block":"none"; });
+topBtn.onclick = ()=> window.scrollTo({top:0,behavior:"smooth"});
+
+render();
+</script>
+</body>
+</html>
