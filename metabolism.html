@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>生化高频物质 · 来源去路表</title>
+<style>
+:root{
+  --bg:#f5f6fa; --card:#ffffff; --ink:#1f2430; --sub:#6b7280; --line:#e5e7eb;
+  --red:#dc2626; --orange:#d97706; --gray:#9ca3af; --acc:#2563eb; --acc-soft:#dbeafe;
+  --ok:#16a34a; --violet:#7c3aed;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:16px 14px 60px}
+header.top{position:sticky;top:0;z-index:20;background:rgba(245,246,250,.95);backdrop-filter:blur(6px);padding:12px 0 10px;border-bottom:1px solid var(--line)}
+h1{font-size:1.2rem;letter-spacing:.5px}
+h1 small{font-size:.7rem;color:var(--sub);font-weight:400;margin-left:6px}
+.legend{font-size:.72rem;color:var(--sub);margin-top:6px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.controls input[type=search]{padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:.85rem;background:#fff;flex:1;min-width:140px}
+.btn{padding:9px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:.8rem;cursor:pointer;color:var(--ink)}
+.btn.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.btn:active{transform:scale(.97)}
+.chap-h{display:flex;align-items:center;gap:8px;margin:22px 0 10px;font-size:1rem;font-weight:700}
+.chap-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.chap-h .n{font-size:.7rem;color:#fff;background:var(--violet);border-radius:8px;padding:1px 8px;font-weight:400}
+.mgrid{display:grid;grid-template-columns:1fr;gap:10px}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:0 1px 3px rgba(20,30,60,.05)}
+.mcard.hub{border-left:4px solid var(--red)}
+.mhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.mname{font-size:.98rem;font-weight:700}
+.hubtag{font-size:.66rem;color:#fff;background:var(--red);border-radius:6px;padding:1px 7px;font-weight:700}
+.badge{font-size:.68rem;font-weight:700;border-radius:6px;padding:1px 7px;color:#fff}
+.badge.b4{background:var(--red)}.badge.b3{background:var(--orange)}.badge.b2{background:var(--gray)}.badge.b1{background:#c7cbd4;color:#555}
+.years{font-size:.68rem;color:var(--sub);background:#f1f2f6;border-radius:6px;padding:1px 7px}
+.mbody{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.mbody{grid-template-columns:1fr}}
+.col h4{font-size:.74rem;color:var(--acc);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.col.go h4{color:var(--ok)}
+.col ul{list-style:none}
+.col li{font-size:.82rem;color:#374151;padding:3px 0 3px 14px;position:relative}
+.col li::before{content:"";position:absolute;left:2px;top:12px;width:5px;height:5px;border-radius:50%;background:#c3c9d4}
+.col li.warn{color:var(--red)}
+.tip{margin-top:9px;padding:7px 10px;background:#fffbeb;border:1px dashed #f1d489;border-radius:9px;font-size:.78rem;color:#8a6d1a}
+.tip b{color:#a16207}
+.foot{margin-top:26px;font-size:.74rem;color:var(--sub);border-top:1px solid var(--line);padding-top:12px}
+#topBtn{position:fixed;right:16px;bottom:20px;width:44px;height:44px;border-radius:50%;border:none;background:var(--acc);color:#fff;font-size:1.1rem;box-shadow:0 4px 12px rgba(37,99,235,.35);display:none;z-index:30;cursor:pointer}
+mark{background:#fef08a;border-radius:2px;padding:0 1px}
+@media(max-width:640px){.wrap{padding:12px 10px 60px}h1{font-size:1.02rem}.btn{padding:8px 10px;font-size:.75rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>生化高频物质 · 来源去路表 <small>覆盖代谢全部（第4–10章）· 共 27 种</small></h1>
+  <div class="legend">● 必考 ｜ ◐ 常考 ｜ ○ 一般 ｜ 红色左边条 = 多路交汇枢纽物质 ｜ 依据真题出现频次 + 章节梳理考频整理</div>
+</header>
+<div class="controls">
+  <input type="search" id="q" placeholder="搜索物质名，如：乙酰 CoA、酮体、PRPP…">
+</div>
+<div class="chap-h" data-gi="1">枢纽物质 · 多路交汇点 <span class="n">6 种</span></div>
+<div class="mgrid">
+<div class="mcard hub" data-search="乙酰 CoA">
+<div class="mhead"><span class="mname">乙酰 CoA</span><span class="hubtag">枢纽</span><span class="badge b4">●</span><span class="years">2025 简（来源去路）</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>糖：葡萄糖 → 丙酮酸 →（丙酮酸脱氢酶复合体，线粒体）→ 乙酰 CoA</li><li>脂：脂肪酸 β-氧化硫解、甘油氧化、酮体（肝外利用时）</li><li>氨基酸：生酮/生糖兼生酮氨基酸脱氨基后生成</li><li>奇数碳脂肪酸 → 丙酰 CoA → 琥珀酰 CoA → 间接入 TCA 补充</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>三羧酸循环彻底氧化（主要去路，供能）</li><li>合成脂肪酸、胆固醇、酮体的共同原料</li><li>参与乙酰化反应（组蛋白乙酰化等）</li><li class=warn>⚠️ 不能作糖异生原料（丙酮酸脱氢酶不可逆）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『来源最广、去路最忙』：糖、脂、氨基酸三大营养素在此汇合——2025 真题直接考来源去路</div>
+</div>
+<div class="mcard hub" data-search="丙酮酸">
+<div class="mhead"><span class="mname">丙酮酸</span><span class="hubtag">枢纽</span><span class="badge b4">●</span><span class="years">真题高频</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>葡萄糖糖酵解终产物（胞液）</li><li>乳酸脱氢（乳酸 ⇌ 丙酮酸，Cori 循环的一环）</li><li>丙氨酸转氨基（葡萄糖-丙氨酸循环）</li><li>糖原分解的中间环节</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>入线粒体 →（丙酮酸脱氢酶复合体）→ 乙酰 CoA + CO₂ + NADH（不可逆！）</li><li>加 CO₂ →（丙酮酸羧化酶，生物素）→ 草酰乙酸（糖异生第一步）</li><li>胞液中乳酸脱氢酶 → 乳酸（无氧/缺氧供能）</li><li>丙氨酸转氨酶 → 丙氨酸（运氨形式之一）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜一分二看氧：有氧走乙酰 CoA，无氧变乳酸，饥饿肝里走糖异生</div>
+</div>
+<div class="mcard hub" data-search="葡萄糖-6-磷酸（G6P）">
+<div class="mhead"><span class="mname">葡萄糖-6-磷酸（G6P）</span><span class="hubtag">枢纽</span><span class="badge b3">◐</span><span class="years">2024 简（磷酸戊糖途径）</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>葡萄糖磷酸化（己糖激酶 / 肝葡萄糖激酶）</li><li>糖原分解（糖原磷酸化酶 → G1P → G6P）</li><li>糖异生终末产物（葡萄糖-6-磷酸酶的上一步）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>糖酵解 → 产能</li><li>磷酸戊糖途径 → NADPH + 核糖-5-磷酸（关键酶 G6PD）</li><li>葡萄糖-6-磷酸酶水解 → 释放入血补血糖（只肝肾有，肌糖原不能升血糖）</li><li>糖原合酶 → 合成糖原</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『G6P 是血糖的十字路口』——五个方向全凭关键酶分流</div>
+</div>
+<div class="mcard hub" data-search="α-酮戊二酸">
+<div class="mhead"><span class="mname">α-酮戊二酸</span><span class="hubtag">枢纽</span><span class="badge b4">●</span><span class="years">2022 问、2018-19 简</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>三羧酸循环：异柠檬酸脱氢（异柠檬酸脱氢酶，脱氢+脱羧）</li><li>谷氨酸氧化脱氨的逆反应（α-酮戊二酸 ⇌ 谷氨酸，转氨枢纽）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>TCA 中 →（α-酮戊二酸脱氢酶系）→ 琥珀酰 CoA</li><li>加氨基 → 谷氨酸（联合脱氨基的核心配对物）</li><li>添补反应（anaplerosis）：氨基酸碳架回补 TCA 中间物</li><li>谷氨酰胺、GABA、脯氨酸等合成的碳骨架</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『转氨的万能配角』：几乎每个转氨酶都拿它和氨基酸配对</div>
+</div>
+<div class="mcard hub" data-search="草酰乙酸">
+<div class="mhead"><span class="mname">草酰乙酸</span><span class="hubtag">枢纽</span><span class="badge b3">◐</span><span class="years">2020 问（TCA 全过程）</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>苹果酸脱氢（TCA 最后一步）</li><li>丙酮酸羧化（丙酮酸羧化酶，生物素）——糖异生关键</li><li>天冬氨酸转氨基（⇌ 天冬氨酸，尿素循环供氮）</li><li>奇数碳脂肪酸 → 琥珀酰 CoA → 苹果酸 → 草酰乙酸</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>与乙酰 CoA 缩合 → 柠檬酸（柠檬酸合酶，TCA 起点）</li><li>PEP 羧激酶 → 磷酸烯醇式丙酮酸（糖异生）</li><li>转氨基 → 天冬氨酸（尿素循环的第二个氮源）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜糖异生和 TCA 共用它；天冬氨酸是它的「氨形」</div>
+</div>
+<div class="mcard hub" data-search="NADH / FADH₂">
+<div class="mhead"><span class="mname">NADH / FADH₂</span><span class="hubtag">枢纽</span><span class="badge b4">●</span><span class="years">2023 问（20 分，呼吸链）</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>NADH：糖酵解（胞液）、丙酮酸脱氢、TCA 三次脱氢（异柠檬酸/α-KG/苹果酸）、β-氧化</li><li>FADH₂：琥珀酸脱氢（TCA）、脂肪酸 β-氧化第一步、甘油-3-磷酸/脂酰 CoA 穿梭系</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>NADH 氧化呼吸链（复合体Ⅰ→Ⅲ→Ⅳ），P/O ≈ 2.5 ATP</li><li>FADH₂ 走琥珀酸氧化呼吸链（复合体Ⅱ→Ⅲ→Ⅳ），P/O ≈ 1.5 ATP</li><li>NADPH（还原性生物合成、维持谷胱甘肽还原态）——注意 NADPH 与 NADH 分工不同</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『一个走Ⅰ门，一个走Ⅱ门』：NADH 从复合体Ⅰ进，FADH₂ 从Ⅱ进——ATP 差 1 个</div>
+</div>
+</div><div class="chap-h" data-gi="2">糖代谢 <span class="n">3 种</span></div>
+<div class="mgrid">
+<div class="mcard" data-search="葡萄糖（血糖）">
+<div class="mhead"><span class="mname">葡萄糖（血糖）</span><span class="badge b4">●</span><span class="years">2022/2024/2025（血糖调节）</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>食物糖消化吸收（入血主渠道）</li><li>肝糖原分解（肝糖原 → G6P → 葡萄糖-6-磷酸酶 → 葡萄糖）</li><li>糖异生（乳酸、甘油、生糖氨基酸、丙酸）</li><li>其他单糖（果糖、半乳糖、甘露糖）转化</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>氧化供能（有氧氧化 / 无氧酵解）</li><li>合成糖原储存（肝、肌）</li><li>磷酸戊糖途径 → 转变为核糖 + NADPH</li><li>转为脂肪、非必需氨基酸</li><li>超过肾糖阈 → 随尿排出</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜来源四路、去路五条；『胰岛素唯一降糖，胰高肾上腺素糖皮质升糖』</div>
+</div>
+<div class="mcard" data-search="乳酸">
+<div class="mhead"><span class="mname">乳酸</span><span class="badge b2">○</span><span class="years">大纲必须掌握</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>骨骼肌剧烈运动无氧酵解</li><li>红细胞（无线粒体，唯一供能方式靠糖酵解产乳酸）</li><li>视网膜、皮肤等正常酵解产物</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>乳酸循环（Cori 循环）：入肝 → 糖异生 → 葡萄糖回输肌肉</li><li>心肌、肝氧化利用（LDH 逆反应 → 丙酮酸入 TCA）</li><li>肾排出（极少）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『肌肉产、肝里变糖』——Cori 循环本身耗能（肝用 6 ATP，肌净得 2 ATP）</div>
+</div>
+<div class="mcard" data-search="柠檬酸">
+<div class="mhead"><span class="mname">柠檬酸</span><span class="badge b3">◐</span><span class="years">TCA 必考环节</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>草酰乙酸 + 乙酰 CoA →（柠檬酸合酶）缩合</li><li>线粒体内 TCA 第一步产物</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>异柠檬酸 → α-酮戊二酸（异柠檬酸脱氢酶，限速）</li><li>出线粒体 → 裂解回乙酰 CoA（脂肪酸合成的原料转运：柠檬酸-丙酮酸循环）</li><li>激活乙酰 CoA 羧化酶（脂肪合成的变构激活剂）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『TCA 的开门人，也是脂肪合成的运料车』</div>
+</div>
+</div><div class="chap-h" data-gi="3">脂类代谢 <span class="n">5 种</span></div>
+<div class="mgrid">
+<div class="mcard" data-search="脂肪酸（游离 FFA）">
+<div class="mhead"><span class="mname">脂肪酸（游离 FFA）</span><span class="badge b4">●</span><span class="years">2021 问、2025 问（β-氧化）</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>脂肪动员：甘油三酯 →（HSL 激素敏感脂肪酶，限速）→ FFA + 甘油</li><li>食物中甘油三酯消化水解（胰脂肪酶 + 辅脂酶，胆汁酸盐乳化）</li><li>脂肪合成（乙酰 CoA 羧化酶 → 丙二酰 CoA → 软脂酸）</li><li>磷脂、鞘脂降解</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>活化（耗 2 高能键）→ 肉碱转运（CPT-Ⅰ 限速，丙二酰 CoA 抑制）→ 线粒体 β-氧化 → 乙酰 CoA</li><li>再酯化合成甘油三酯、磷脂</li><li>奇数碳脂肪酸 → 丙酰 CoA → 琥珀酰 CoA（可糖异生）</li><li>与白蛋白结合经血运输供全身</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜β-氧化四步口诀：『脱氢、加水、再脱氢、硫解』；软脂酸 106 ATP（新算法）</div>
+</div>
+<div class="mcard" data-search="甘油">
+<div class="mhead"><span class="mname">甘油</span><span class="badge b3">◐</span><span class="years">真题多次涉及</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>脂肪动员：HSL 水解甘油三酯的伴随产物</li><li>糖酵解中间物 DHAP 还原（脂肪合成的最后一步）</li><li>食物中甘油三酯消化</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>甘油激酶（肝、肾）→ α-磷酸甘油 → DHAP → 糖异生原料</li><li>→ 完全氧化供能</li><li>再酯化参与甘油三酯合成</li><li class=warn>⚠️ 脂肪细胞缺乏甘油激酶，甘油必须运回肝利用</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『脂肪不能变糖，甘油例外』——三大营养素互转的经典考点</div>
+</div>
+<div class="mcard" data-search="酮体（乙酰乙酸、β-羟丁酸、丙酮）">
+<div class="mhead"><span class="mname">酮体（乙酰乙酸、β-羟丁酸、丙酮）</span><span class="badge b3">◐</span><span class="years">大纲必须掌握</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>肝线粒体：2 分子乙酰 CoA →（HMG-CoA 合酶，关键酶）→ 乙酰乙酸 → β-羟丁酸 / 丙酮</li><li>原料唯一：乙酰 CoA（来自脂肪酸 β-氧化）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>肝外利用：心、肾、骨骼肌、饥饿时脑 → 乙酰乙酰 CoA → 乙酰 CoA → 氧化供能</li><li>丙酮经肺呼出（烂苹果味）</li><li>过多 → 酮血症、酮尿、酮症酸中毒（糖尿病急症）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜口诀：『肝内合成肝外用，肝外氧化回乙酰；HMG-CoA 合酶是关键』</div>
+</div>
+<div class="mcard" data-search="胆固醇">
+<div class="mhead"><span class="mname">胆固醇</span><span class="badge b3">◐</span><span class="years">2018-19 问、2024 判</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>自身合成：肝胞液/内质网，18 乙酰 CoA + NADPH + ATP，关键酶 HMG-CoA 还原酶（他汀靶点）</li><li>食物消化吸收（乳糜微粒运送）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>转化为胆汁酸（主要去路，约占 40%，7α-羟化酶限速）</li><li>合成类固醇激素（肾上腺皮质、性腺）</li><li>转化为维生素 D₃（皮肤经紫外线）</li><li>构成生物膜、酯化储存于脂蛋白（LDL 运往肝外）</li><li>随胆汁排出（部分）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『一原料三去路』：HMG-CoA 还原酶是开关，胆汁酸是主出口，LDL 受体负反馈</div>
+</div>
+<div class="mcard" data-search="血浆脂蛋白（CM / VLDL / LDL / HDL）">
+<div class="mhead"><span class="mname">血浆脂蛋白（CM / VLDL / LDL / HDL）</span><span class="badge b2">○</span><span class="years">2024 判、2025 简（CM）</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>CM：小肠黏膜合成，装外源性甘油三酯（apoB48）</li><li>VLDL：肝细胞合成，装内源性甘油三酯（apoB100）</li><li>LDL：VLDL 代谢中甘油三酯被 LPL 水解后剩余（胆固醇为主）</li><li>HDL：肝、小肠新生，表面获 apoAⅠ</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>CM：LPL（需 apoCⅡ 激活）水解 TG →  remnant 残粒入肝</li><li>VLDL → IDL → LDL：LDL 经 LDL 受体把胆固醇送肝外组织</li><li>HDL：逆向转运胆固醇回肝（抗动脉粥样硬化），LCAT 酯化</li><li>密度：CM &lt; VLDL &lt; LDL &lt; HDL（直径相反）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜口诀：『CM 外、VLDL 内、LDL 送、HDL 收』；空腹查不到 CM（半衰期 5–15 min）</div>
+</div>
+</div><div class="chap-h" data-gi="4">氨基酸代谢 <span class="n">7 种</span></div>
+<div class="mgrid">
+<div class="mcard" data-search="氨（NH₃）">
+<div class="mhead"><span class="mname">氨（NH₃）</span><span class="badge b3">◐</span><span class="years">大纲必须掌握</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>氨基酸脱氨基（联合脱氨基为主，最主要来源）</li><li>肠道细菌腐败吸收（肠氨）</li><li>肾小管上皮细胞分泌氨（排酸保碱）</li><li>嘌呤、嘧啶分解也产氨</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>肝合成尿素（主要去路，鸟氨酸循环）</li><li>合成谷氨酰胺（脑、肌解氨毒形式）</li><li>合成非必需氨基酸、嘌呤、嘧啶</li><li>肾以 NH₄⁺ 形式排出（酸中毒时增加）</li><li class=warn>⚠️ 氨有毒：肝功能受损 → 高血氨 → 肝性脑病</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜来源三路、去路四条；运氨两形式：『丙氨酸-葡萄糖循环（肌→肝）、谷氨酰胺（脑→肝/肾）』</div>
+</div>
+<div class="mcard" data-search="尿素">
+<div class="mhead"><span class="mname">尿素</span><span class="badge b3">◐</span><span class="years">2021 简、2024 判</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>鸟氨酸循环（肝，线粒体 + 胞液两地完成）</li><li>氮源两个：一个 NH₃、一个天冬氨酸（记住！）</li><li>CO₂ + 2NH₃ + 3ATP（耗 4 个高能键）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>经血入肾 → 随尿排出（机体排氮废物的主形式）</li><li>肠道细菌脲酶分解（少量）</li><li class=warn>⚠️ 是氨解毒的终产物，不是供能物质</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜口诀：『线粒体里氨甲酰，胞液精氨代琥珀酸；氨与天冬两氮源，三 ATP 四个高能键』</div>
+</div>
+<div class="mcard" data-search="谷氨酰胺">
+<div class="mhead"><span class="mname">谷氨酰胺</span><span class="badge b2">○</span><span class="years">大纲必须掌握</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>谷氨酸 + NH₃（谷氨酰胺合成酶，耗能）——脑、肌合成</li><li>食物中蛋白质分解</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>运氨到肝：水解 → 谷氨酸 + NH₃ → 尿素</li><li>运氨到肾：水解供氨 → 以铵盐排酸</li><li>嘌呤、嘧啶合成的氮源（与天冬氨酸并列供氮）</li><li>肠黏膜、免疫细胞快速供能的燃料</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『解氨毒的快递盒』：到哪卸货由谷氨酰胺酶决定</div>
+</div>
+<div class="mcard" data-search="一碳单位">
+<div class="mhead"><span class="mname">一碳单位</span><span class="badge b3">◐</span><span class="years">大纲必须掌握</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>丝氨酸、甘氨酸、组氨酸、色氨酸分解（口诀：施舍竹竿）</li><li>形式：甲基、亚甲基、次甲基、甲酰基、亚氨甲基</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>由四氢叶酸（FH₄）携带转运</li><li>合成嘌呤环（N¹⁰-甲酰 FH₄ ×2）与 dTMP（N⁵,N¹⁰-亚甲 FH₄）</li><li>参与 SAM 介导的甲基化反应</li><li class=warn>⚠️ 叶酸缺乏 → 巨幼细胞性贫血</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜施舍竹竿（丝色甘组）＋载体 FH₄——两考合一</div>
+</div>
+<div class="mcard" data-search="SAM（S-腺苷甲硫氨酸）">
+<div class="mhead"><span class="mname">SAM（S-腺苷甲硫氨酸）</span><span class="badge b2">○</span><span class="years">大纲列出</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>甲硫氨酸 + ATP（甲硫氨酸腺苷转移酶）</li><li>甲硫氨酸循环再生（同型半胱氨酸 + N⁵-CH₃-FH₄，需甲基 B₁₂）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>甲基转移给受体（肌酸、肾上腺素、胆碱、DNA/RNA 甲基化）→ 体内最重要活性甲基供体</li><li>自身 → S-腺苷同型半胱氨酸 → 同型半胱氨酸</li><li>再接受 FH₄ 的甲基 → 甲硫氨酸再生（循环）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『活性甲基快递员』：B₁₂ 缺乏 → 循环卡住 → 巨幼贫</div>
+</div>
+<div class="mcard" data-search="GABA（γ-氨基丁酸）">
+<div class="mhead"><span class="mname">GABA（γ-氨基丁酸）</span><span class="badge b2">○</span><span class="years">2024 选</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>谷氨酸脱羧（谷氨酸脱羧酶，辅酶磷酸吡哆醛/VB₆）——脑内</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>抑制性神经递质（中枢神经主要抑制介质）</li><li>进一步代谢进入 TCA 中间物（琥珀酸半醛 → 琥珀酸）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『谷氨酸脱了羧基就变温柔（抑制）』</div>
+</div>
+<div class="mcard" data-search="苯丙氨酸 / 酪氨酸">
+<div class="mhead"><span class="mname">苯丙氨酸 / 酪氨酸</span><span class="badge b2">○</span><span class="years">2024 选、2025 选</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>苯丙氨酸 →（苯丙氨酸羟化酶）→ 酪氨酸（必需转非必需的关键一步）</li><li>食物蛋白质（苯丙氨酸为必需氨基酸）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>酪氨酸 → 多巴胺 → 去甲肾上腺素 → 肾上腺素（儿茶酚胺类）</li><li>酪氨酸 → 黑色素（酪氨酸酶；缺乏 → 白化病）</li><li>酪氨酸 → 甲状腺素</li><li>酪氨酸 → 尿黑酸 → 延胡索酸 + 乙酰乙酸（生糖兼生酮）</li><li>苯丙氨酸羟化酶缺乏 → 苯丙酮尿症</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜一条通路四个产物：『神经、颜色、激素、能量』</div>
+</div>
+</div><div class="chap-h" data-gi="5">核苷酸代谢 <span class="n">3 种</span></div>
+<div class="mgrid">
+<div class="mcard" data-search="PRPP（5-磷酸核糖-1-焦磷酸）">
+<div class="mhead"><span class="mname">PRPP（5-磷酸核糖-1-焦磷酸）</span><span class="badge b3">◐</span><span class="years">2025 选（嘌呤合成原料）</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>5-磷酸核糖（糖代谢来的戊糖）+ ATP（PRPP 合成酶）</li><li>磷酸戊糖途径是 5-磷酸核糖的源头</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>嘌呤核苷酸从头合成的起始物（IMP 合成的第 1 步底物）</li><li>嘌呤/嘧啶补救合成的底物（A + PRPP → AMP；G/I + PRPP → GMP/IMP，HGPRT）</li><li>参与组氨酸、色氨酸合成</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜⚠️ 注意：PRPP 是『5-磷酸核糖的活化形式』，不是 5-磷酸核糖本身</div>
+</div>
+<div class="mcard" data-search="IMP（次黄嘌呤核苷酸）">
+<div class="mhead"><span class="mname">IMP（次黄嘌呤核苷酸）</span><span class="badge b4">●</span><span class="years">2020 简、2021 简</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>嘌呤从头合成的第一个核苷酸产物</li><li>原料：PRPP + 天冬氨酸 + 谷氨酰胺 + 甘氨酸 + CO₂ + 一碳单位（×2）</li><li>关键酶：PRPP 酰胺转移酶（committed 步骤，受 AMP/GMP 反馈抑制）</li><li>补救合成：I + PRPP（HGPRT）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>→ AMP（需天冬氨酸供能）或 → GMP（需谷氨酰胺）</li><li>分解：IMP → 次黄嘌呤 →（黄嘌呤氧化酶）→ 尿酸</li><li class=warn>⚠️ 累积加重痛风：分解产尿酸 + 反馈抑制 HGPRT 阻断补救再利用</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜嘌呤原料图解口诀：『甘氨中间坐，谷酰两边挂；天冬在上方，CO₂ 卧下方；两个一碳分居 2、8 位』</div>
+</div>
+<div class="mcard" data-search="尿酸">
+<div class="mhead"><span class="mname">尿酸</span><span class="badge b4">●</span><span class="years">2020 简、2021 简、2024 选</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>嘌呤分解终产物：AMP/GMP/IMP → 次黄嘌呤、黄嘌呤 →（黄嘌呤氧化酶）→ 尿酸</li><li>人、猿、鸟类排尿酸（多数哺乳类排尿素）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>主要经肾随尿排出</li><li>过高 → 尿酸盐结晶沉积关节/肾 → 痛风、肾结石</li><li>治疗：别嘌呤醇抑制黄嘌呤氧化酶</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『嘌呤的最后归宿』：酶是黄嘌呤氧化酶，药是别嘌呤醇</div>
+</div>
+</div><div class="chap-h" data-gi="6">肝胆与血液生化 <span class="n">3 种</span></div>
+<div class="mgrid">
+<div class="mcard" data-search="血红素">
+<div class="mhead"><span class="mname">血红素</span><span class="badge b3">◐</span><span class="years">2024 选、2025 选（原料）</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>原料：甘氨酸 + 琥珀酰 CoA + Fe²⁺（三样必背）</li><li>部位：骨髓（红细胞）和肝；线粒体起始 → 胞液中间 → 线粒体结束</li><li>限速酶：ALA 合酶（辅酶磷酸吡哆醛），受血红素负反馈</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li> + 珠蛋白 → 血红蛋白 / 肌红蛋白 / 细胞色素</li><li>衰老红细胞破坏 → 血红素 → 胆绿素 → 胆红素（胆色素代谢起点）</li><li class=warn>⚠️ 铅中毒抑制 ALA 脱水酶和亚铁螯合酶 → 贫血</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜原料三件套：『甘氨酸 + 琥珀酰 CoA + 铁』——两个来自 TCA 相关，一个来自氨基酸</div>
+</div>
+<div class="mcard" data-search="胆红素">
+<div class="mhead"><span class="mname">胆红素</span><span class="badge b3">◐</span><span class="years">大纲列出、黄疸必考</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>血红素 →（血红素加氧酶，限速）→ 胆绿素 → 未结合（游离）胆红素</li><li>脂溶性、有毒，可过血脑屏障（核黄疸）</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>肝摄取 + UDPGA 结合 → 结合胆红素（水溶性、无毒）</li><li>随胆汁入肠 → 尿胆原 → 部分重吸收（肠肝循环）、部分 → 尿胆素随粪排</li><li>黄疸三型鉴别：溶血性（未结合↑）、肝细胞性（两者↑）、阻塞性（结合↑）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜『未结合走血脑、结合走肠道』——水溶性一变，毒性全无</div>
+</div>
+<div class="mcard" data-search="胆汁酸">
+<div class="mhead"><span class="mname">胆汁酸</span><span class="badge b3">◐</span><span class="years">2024 判、2025 选</span></div>
+<div class="mbody">
+<div class="col"><h4>⬇ 来源（从哪来）</h4><ul><li>肝合成：胆固醇 →（7α-羟化酶，限速）→ 初级胆汁酸（胆酸、鹅脱氧胆酸）</li><li>与甘氨酸/牛磺酸结合 → 结合胆汁酸</li></ul></div>
+<div class="col go"><h4>⬆ 去路（到哪去）</h4><ul><li>入肠道乳化脂肪 → 肠菌去结合/去羟 → 次级胆汁酸（脱氧胆酸、石胆酸）</li><li>肠肝循环回收约 95%</li><li>负反馈抑制 7α-羟化酶（胆固醇 ←→ 胆汁酸互相牵制）</li></ul></div>
+</div>
+<div class="tip"><b>口诀 / 提示</b>｜胆固醇『第一大去路』；7α-羟化酶是限速开关</div>
+</div>
+</div>
+<div class="foot">按《章节知识点梳理》第 4–10 章 + 2020–2025 真题整理 · 与知识点卡片 / 真题自测 / 背诵遮挡页配套使用</div>
+</div>
+<button id="topBtn" title="回到顶部">↑</button>
+<script>
+const q=document.getElementById('q');
+const cards=[...document.querySelectorAll('.mcard')];
+q.addEventListener('input',()=>{
+  const v=q.value.trim().toLowerCase();
+  cards.forEach(c=>{c.style.display=c.dataset.search.toLowerCase().includes(v)?'':'none';});
+  document.querySelectorAll('.mgrid').forEach(g=>{
+    const any=[...g.children].some(c=>c.style.display!=='none');
+    g.style.display=any?'':'none';
+    g.previousElementSibling.style.display=any?'':'none';
+  });
+});
+const tb=document.getElementById('topBtn');
+window.addEventListener('scroll',()=>{tb.style.display=window.scrollY>400?'block':'none';});
+tb.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+</script>
+</body>
+</html>
